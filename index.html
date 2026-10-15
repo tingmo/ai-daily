@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 每日观察</title>
+<meta name="description" content="每日AI资讯：AI新闻 + 板块资金流向趋势分析" />
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2330;
+    --border: #2a3140;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --up: #f8514e;     /* A股惯例：红 = 涨/流入 */
+    --down: #26a69a;   /* 绿 = 跌/流出 */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; }
+
+  header {
+    padding: 48px 0 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  header h1 { font-size: 30px; letter-spacing: 1px; }
+  header .sub { color: var(--muted); margin-top: 8px; font-size: 14px; }
+  header .date-chip {
+    display: inline-block; margin-top: 14px; padding: 4px 14px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 999px; font-size: 14px; color: var(--accent);
+  }
+
+  section { margin-bottom: 44px; }
+  h2 {
+    font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .bar { width: 4px; height: 20px; background: var(--accent); border-radius: 2px; }
+  h2 .en { color: var(--muted); font-size: 13px; font-weight: normal; }
+
+  /* 新闻卡片 */
+  .news-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+    transition: border-color .2s;
+  }
+  .news-card:hover { border-color: var(--accent); }
+  .news-card .tag {
+    display: inline-block; font-size: 12px; color: var(--accent);
+    background: rgba(88,166,255,.12); padding: 2px 10px; border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .news-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .news-card h3 a { color: var(--text); }
+  .news-card h3 a:hover { color: var(--accent); text-decoration: none; }
+  .news-card p { color: var(--muted); font-size: 14px; }
+  .news-card .src { margin-top: 10px; font-size: 12px; color: #6e7681; }
+
+  /* 图表 */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px;
+  }
+  .chart-panel .chart-title { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+  .chart { width: 100%; height: 320px; }
+  .chart-wide { height: 260px; }
+
+  /* 指数表现 */
+  .index-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+  .index-card {
+    flex: 1 1 180px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 18px;
+  }
+  .index-card .name { font-size: 13px; color: var(--muted); }
+  .index-card .val { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .index-card .note { font-size: 12px; color: #6e7681; margin-top: 2px; }
+  .up { color: var(--up); }
+  .down { color: var(--down); }
+
+  /* 个股表 */
+  table { width: 100%; border-collapse: collapse; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  th, td { padding: 10px 16px; text-align: left; font-size: 14px; }
+  th { background: var(--panel-2); color: var(--muted); font-weight: 500; }
+  tr + tr td { border-top: 1px solid var(--border); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* 点评 */
+  .analysis {
+    background: linear-gradient(135deg, rgba(88,166,255,.08), rgba(88,166,255,.02));
+    border: 1px solid rgba(88,166,255,.3);
+    border-radius: 12px; padding: 20px 22px; font-size: 15px;
+  }
+  .analysis .label { color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+
+  footer { border-top: 1px solid var(--border); padding-top: 20px;
+    color: #6e7681; font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1 id="site-title">AI 每日观察</h1>
+    <div class="sub">AI 新闻 · 板块资金流向趋势分析 —— 每天 5 分钟，看懂 AI 赛道</div>
+    <div class="date-chip" id="date-chip">加载中…</div>
+  </header>
+
+  <!-- 板块一：AI 新闻 -->
+  <section>
+    <h2><span class="bar"></span>今日 AI 新闻 <span class="en">AI NEWS</span></h2>
+    <div id="news-list"></div>
+  </section>
+
+  <!-- 板块二：板块流向趋势分析 -->
+  <section>
+    <h2><span class="bar"></span>板块流向趋势分析 <span class="en">SECTOR FLOW</span></h2>
+
+    <div class="index-row" id="index-row"></div>
+
+    <div class="chart-grid">
+      <div class="chart-panel">
+        <div class="chart-title">AI 相关概念板块 · 主力净流入（亿元）</div>
+        <div id="chart-concept" class="chart"></div>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-title">申万一级行业 · 主力净流入（亿元）</div>
+        <div id="chart-industry" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="chart-panel" style="margin-top:14px;">
+      <div class="chart-title">AI 概念板块主力净流入趋势（亿元）· 随每日数据累积</div>
+      <div id="chart-trend" class="chart chart-wide"></div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <div class="chart-title" style="font-size:14px;color:var(--muted);margin-bottom:8px;">
+        AI 概念板块内 · 个股主力净流入 TOP（亿元）
+      </div>
+      <table>
+        <thead><tr>
+          <th>股票</th><th>代码</th>
+          <th class="num">主力净流入（亿元）</th><th class="num">涨跌幅</th>
+        </tr></thead>
+        <tbody id="stock-tbody"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:18px;" class="analysis">
+      <div class="label">📈 趋势点评</div>
+      <div id="analysis-text"></div>
+    </div>
+  </section>
+
+  <footer>
+    数据来源：Wind / 东方财富 / 公开新闻 · 仅供研究参考，不构成投资建议<br/>
+    Powered by GitHub Pages
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+  // ---------- 基础信息 ----------
+  document.getElementById("site-title").textContent = DATA.title;
+  document.getElementById("date-chip").textContent = DATA.date + " · " + DATA.weekday;
+  document.getElementById("analysis-text").textContent = DATA.analysis;
+
+  // ---------- 新闻列表 ----------
+  const newsHtml = DATA.news.map(n => `
+    <div class="news-card">
+      <span class="tag">${n.tag}</span>
+      <h3><a href="${n.url}" target="_blank" rel="noopener">${n.title}</a></h3>
+      <p>${n.summary}</p>
+      <div class="src">来源：${n.source}</div>
+    </div>`).join("");
+  document.getElementById("news-list").innerHTML = newsHtml;
+
+  // ---------- 指数表现 ----------
+  const fmt = v => (v > 0 ? "+" : "") + v.toFixed(2) + "%";
+  const cls = v => (v > 0 ? "up" : v < 0 ? "down" : "");
+  document.getElementById("index-row").innerHTML = DATA.indexPerformance.map(i => `
+    <div class="index-card">
+      <div class="name">${i.name}</div>
+      <div class="val ${cls(i.change)}">${fmt(i.change)}</div>
+      <div class="note">${i.note}</div>
+    </div>`).join("");
+
+  // ---------- 个股 TOP ----------
+  document.getElementById("stock-tbody").innerHTML = DATA.stockFlowTop.map(s => `
+    <tr>
+      <td>${s.name}</td><td style="color:var(--muted)">${s.code}</td>
+      <td class="num ${cls(s.value)}">${s.value.toFixed(2)}</td>
+      <td class="num ${s.change == null ? "" : cls(s.change)}">${s.change == null ? "—" : fmt(s.change)}</td>
+    </tr>`).join("");
+
+  // ---------- ECharts ----------
+  const axisLabel = { color: "#8b949e", fontSize: 12 };
+  function barChart(id, data) {
+    const sorted = [...data].sort((a, b) => a.value - b.value);
+    const chart = echarts.init(document.getElementById(id));
+    chart.setOption({
+      grid: { left: 90, right: 40, top: 10, bottom: 30 },
+      xAxis: { type: "value", axisLabel: { ...axisLabel, formatter: v => v + "亿" },
+               splitLine: { lineStyle: { color: "#2a3140" } } },
+      yAxis: { type: "category", data: sorted.map(d => d.name), axisLabel },
+      tooltip: { trigger: "axis", valueFormatter: v => v + " 亿元" },
+      series: [{
+        type: "bar", barMaxWidth: 18,
+        data: sorted.map(d => ({
+          value: d.value,
+          itemStyle: { color: d.value >= 0 ? "#f8514e" : "#26a69a", borderRadius: 3 }
+        }))
+      }]
+    });
+    window.addEventListener("resize", () => chart.resize());
+  }
+  barChart("chart-concept", DATA.conceptFlow);
+  barChart("chart-industry", DATA.industryFlow);
+
+  // 趋势线
+  const trend = echarts.init(document.getElementById("chart-trend"));
+  trend.setOption({
+    grid: { left: 50, right: 30, top: 20, bottom: 30 },
+    tooltip: { trigger: "axis", valueFormatter: v => v + " 亿元" },
+    xAxis: { type: "category", data: DATA.history.map(h => h.date), axisLabel },
+    yAxis: { type: "value", axisLabel: { ...axisLabel, formatter: v => v + "亿" },
+             splitLine: { lineStyle: { color: "#2a3140" } } },
+    series: [{
+      type: "line", smooth: true, symbolSize: 8,
+      data: DATA.history.map(h => h.aiNetInflow),
+      lineStyle: { color: "#58a6ff", width: 3 },
+      itemStyle: { color: "#58a6ff" },
+      areaStyle: { color: "rgba(88,166,255,.15)" },
+      markLine: { silent: true, symbol: "none",
+        lineStyle: { color: "#6e7681", type: "dashed" },
+        data: [{ yAxis: 0 }], label: { show: false } }
+    }]
+  });
+  window.addEventListener("resize", () => trend.resize());
+</script>
+</body>
+</html>

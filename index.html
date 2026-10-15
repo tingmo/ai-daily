@@ -124,6 +124,32 @@
     <div id="news-list"></div>
   </section>
 
+  <!-- 板块三：AI 舆情指数 -->
+  <section>
+    <h2><span class="bar"></span>AI 舆情指数 <span class="en">SENTIMENT INDEX</span></h2>
+
+    <div class="chart-grid">
+      <div class="chart-panel">
+        <div class="chart-title">综合舆情指数（0-100）</div>
+        <div id="chart-gauge" class="chart"></div>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-title">舆情五维拆解</div>
+        <div id="chart-radar" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="chart-panel" style="margin-top:14px;">
+      <div class="chart-title">舆情指数趋势 · 随每日数据累积</div>
+      <div id="chart-sentiment-trend" class="chart chart-wide"></div>
+    </div>
+
+    <div style="margin-top:14px;" class="analysis">
+      <div class="label">🔍 今日舆情解读</div>
+      <div id="sentiment-summary"></div>
+    </div>
+  </section>
+
   <!-- 板块二：板块流向趋势分析 -->
   <section>
     <h2><span class="bar"></span>板块流向趋势分析 <span class="en">SECTOR FLOW</span></h2>
@@ -177,6 +203,83 @@
   document.getElementById("site-title").textContent = DATA.title;
   document.getElementById("date-chip").textContent = DATA.date + " · " + DATA.weekday;
   document.getElementById("analysis-text").textContent = DATA.analysis;
+
+  // ---------- 舆情指数 ----------
+  document.getElementById("sentiment-summary").textContent = DATA.sentiment.summary;
+
+  // 综合仪表盘
+  const gauge = echarts.init(document.getElementById("chart-gauge"));
+  const sChange = DATA.sentiment.change;
+  gauge.setOption({
+    series: [{
+      type: "gauge", min: 0, max: 100, startAngle: 210, endAngle: -30,
+      progress: { show: true, width: 16, roundCap: true,
+        itemStyle: { color: "#58a6ff" } },
+      axisLine: { roundCap: true, lineStyle: { width: 16, color: [[1, "#2a3140"]] } },
+      pointer: { show: false }, axisTick: { show: false },
+      splitLine: { show: false }, axisLabel: { show: false },
+      detail: {
+        valueAnimation: true, fontSize: 46, offsetCenter: [0, "-5%"],
+        color: "#e6edf3", fontWeight: 700,
+      },
+      title: {
+        offsetCenter: [0, "35%"], fontSize: 14, color: "#8b949e",
+        formatter: () => DATA.sentiment.level +
+          " · 较前日 " + (sChange > 0 ? "+" : "") + sChange,
+      },
+      data: [{ value: DATA.sentiment.score }],
+    }]
+  });
+  window.addEventListener("resize", () => gauge.resize());
+
+  // 五维雷达
+  const radar = echarts.init(document.getElementById("chart-radar"));
+  radar.setOption({
+    radar: {
+      indicator: DATA.sentiment.dimensions.map(d => ({ name: d.name, max: 100 })),
+      axisName: { color: "#8b949e", fontSize: 12 },
+      splitLine: { lineStyle: { color: "#2a3140" } },
+      splitArea: { areaStyle: { color: ["rgba(42,49,64,.15)", "transparent"] } },
+      axisLine: { lineStyle: { color: "#2a3140" } },
+      radius: "65%",
+    },
+    series: [{
+      type: "radar",
+      data: [{
+        value: DATA.sentiment.dimensions.map(d => d.value),
+        lineStyle: { color: "#58a6ff", width: 2 },
+        itemStyle: { color: "#58a6ff" },
+        areaStyle: { color: "rgba(88,166,255,.25)" },
+      }],
+      tooltip: { show: true },
+    }]
+  });
+  window.addEventListener("resize", () => radar.resize());
+
+  // 舆情趋势线
+  const sTrend = echarts.init(document.getElementById("chart-sentiment-trend"));
+  sTrend.setOption({
+    grid: { left: 50, right: 30, top: 20, bottom: 30 },
+    tooltip: { trigger: "axis" },
+    xAxis: { type: "category", data: DATA.sentimentHistory.map(h => h.date), axisLabel },
+    yAxis: { type: "value", min: 0, max: 100, axisLabel, 
+             splitLine: { lineStyle: { color: "#2a3140" } } },
+    series: [{
+      type: "line", smooth: true, symbolSize: 8,
+      data: DATA.sentimentHistory.map(h => h.score),
+      lineStyle: { color: "#bc8cff", width: 3 },
+      itemStyle: { color: "#bc8cff" },
+      areaStyle: { color: "rgba(188,140,255,.15)" },
+      markArea: DATA.sentimentHistory.length > 1 ? {
+        silent: true,
+        data: [
+          [{ yAxis: 70, name: "偏热区", itemStyle: { color: "rgba(248,81,78,.06)" }, label: { color: "#f8514e", fontSize: 11, position: "insideTopRight" } }, { yAxis: 100 }],
+          [{ yAxis: 0, name: "偏冷区", itemStyle: { color: "rgba(38,166,154,.06)" }, label: { color: "#26a69a", fontSize: 11, position: "insideBottomRight" } }, { yAxis: 30 }]
+        ]
+      } : undefined,
+    }]
+  });
+  window.addEventListener("resize", () => sTrend.resize());
 
   // ---------- 新闻列表 ----------
   const newsHtml = DATA.news.map(n => `

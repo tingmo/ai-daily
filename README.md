@@ -60,6 +60,25 @@ git push
 - **数据缺失**：`data.js` 中数值可为 `null`，页面显示「—」，不编造数据
 - **趋势累积**：`history`（板块资金）与 `sentimentHistory`（舆情指数）每天各追加一条，图表自动形成趋势曲线
 
+## 自定义域名
+
+站点已绑定自定义域名，主地址：**https://www.moomlt.com/**（`moomlt.com` 自动 301 跳转到 www）
+
+仓库内 `CNAME` 文件内容为 `www.moomlt.com`，**请勿删除**，否则自定义域名会失效。
+
+DNS 解析（阿里云云解析 / hichina）需包含以下记录：
+
+| 主机记录 | 类型 | 记录值 | 说明 |
+|---|---|---|---|
+| `_github-pages-challenge-tingmo` | TXT | `8d3ad53efa5922bb4e01e18c72b62f` | GitHub 域名所有权验证，**必须保留不可删除** |
+| `www` | CNAME | `tingmo.github.io` | 站点主地址 |
+| `@` | A | `185.199.108.153` | 主域名跳转，GitHub 官方 IP |
+| `@` | A | `185.199.109.153` | 同上 |
+| `@` | A | `185.199.110.153` | 同上 |
+| `@` | A | `185.199.111.153` | 同上 |
+
+GitHub 侧配置：仓库 → Settings → Pages → Custom domain 填 `www.moomlt.com` → Save → 待 DNS check 通过后勾选 **Enforce HTTPS**。
+
 ## 首次部署（已完成，备查）
 
 ```bash

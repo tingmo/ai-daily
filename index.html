@@ -1,358 +1,330 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI 每日观察</title>
-<meta name="description" content="每日AI资讯：AI新闻 + 板块资金流向趋势分析" />
-<script src="./echarts.min.js"></script>
-<style>
-  :root {
-    --bg: #0d1117;
-    --panel: #161b22;
-    --panel-2: #1c2330;
-    --border: #2a3140;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --accent: #58a6ff;
-    --up: #f8514e;     /* A股惯例：红 = 涨/流入 */
-    --down: #26a69a;   /* 绿 = 跌/流出 */
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
-    line-height: 1.6;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .container { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; }
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  header {
-    padding: 48px 0 28px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 32px;
-  }
-  header h1 { font-size: 30px; letter-spacing: 1px; }
-  header .sub { color: var(--muted); margin-top: 8px; font-size: 14px; }
-  header .date-chip {
-    display: inline-block; margin-top: 14px; padding: 4px 14px;
-    background: var(--panel-2); border: 1px solid var(--border);
-    border-radius: 999px; font-size: 14px; color: var(--accent);
-  }
+<!-- ============ SEO ============ -->
+<title>AI 每日观察 · AI 新闻与板块资金流向全景</title>
+<meta name="description" content="每日 AI 资讯与 A 股 AI 板块资金流向研究：AI 新闻精选、AI 舆情指数（五维打分）、概念板块与申万行业主力资金净流入、个股资金榜单与趋势分析。" />
+<meta name="keywords" content="AI新闻,人工智能,AI板块,资金流向,主力净流入,AI舆情指数,半导体,算力,A股,每日复盘,投资研究" />
+<meta name="author" content="AI 每日观察" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://tingmo.github.io/ai-daily/" />
+<meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#080d17" media="(prefers-color-scheme: dark)" />
 
-  section { margin-bottom: 44px; }
-  h2 {
-    font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
-  }
-  h2 .bar { width: 4px; height: 20px; background: var(--accent); border-radius: 2px; }
-  h2 .en { color: var(--muted); font-size: 13px; font-weight: normal; }
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AI 每日观察" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:title" content="AI 每日观察 · AI 新闻与板块资金流向全景" />
+<meta property="og:description" content="每日 AI 要闻、AI 舆情指数、A 股 AI 板块主力资金流向趋势分析。" />
+<meta property="og:url" content="https://tingmo.github.io/ai-daily/" />
 
-  /* 新闻卡片 */
-  .news-card {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
-    transition: border-color .2s;
-  }
-  .news-card:hover { border-color: var(--accent); }
-  .news-card .tag {
-    display: inline-block; font-size: 12px; color: var(--accent);
-    background: rgba(88,166,255,.12); padding: 2px 10px; border-radius: 999px;
-    margin-bottom: 8px;
-  }
-  .news-card h3 { font-size: 17px; margin-bottom: 8px; }
-  .news-card h3 a { color: var(--text); }
-  .news-card h3 a:hover { color: var(--accent); text-decoration: none; }
-  .news-card p { color: var(--muted); font-size: 14px; }
-  .news-card .src { margin-top: 10px; font-size: 12px; color: #6e7681; }
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI 每日观察 · AI 新闻与板块资金流向全景" />
+<meta name="twitter:description" content="每日 AI 要闻、AI 舆情指数、A 股 AI 板块主力资金流向趋势分析。" />
 
-  /* 图表 */
-  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 720px) { .chart-grid { grid-template-columns: 1fr; } }
-  .chart-panel {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px;
-  }
-  .chart-panel .chart-title { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-  .chart { width: 100%; height: 320px; }
-  .chart-wide { height: 260px; }
+<!-- 图标 -->
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="./favicon.svg" />
 
-  /* 指数表现 */
-  .index-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
-  .index-card {
-    flex: 1 1 180px; background: var(--panel); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px 18px;
-  }
-  .index-card .name { font-size: 13px; color: var(--muted); }
-  .index-card .val { font-size: 24px; font-weight: 700; margin-top: 4px; }
-  .index-card .note { font-size: 12px; color: #6e7681; margin-top: 2px; }
-  .up { color: var(--up); }
-  .down { color: var(--down); }
-
-  /* 个股表 */
-  table { width: 100%; border-collapse: collapse; background: var(--panel);
-    border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  th, td { padding: 10px 16px; text-align: left; font-size: 14px; }
-  th { background: var(--panel-2); color: var(--muted); font-weight: 500; }
-  tr + tr td { border-top: 1px solid var(--border); }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-
-  /* 点评 */
-  .analysis {
-    background: linear-gradient(135deg, rgba(88,166,255,.08), rgba(88,166,255,.02));
-    border: 1px solid rgba(88,166,255,.3);
-    border-radius: 12px; padding: 20px 22px; font-size: 15px;
-  }
-  .analysis .label { color: var(--accent); font-weight: 700; margin-bottom: 8px; }
-
-  footer { border-top: 1px solid var(--border); padding-top: 20px;
-    color: #6e7681; font-size: 13px; text-align: center; }
-</style>
-</head>
-<body>
-<div class="container">
-  <header>
-    <h1 id="site-title">AI 每日观察</h1>
-    <div class="sub">AI 新闻 · 板块资金流向趋势分析 —— 每天 5 分钟，看懂 AI 赛道</div>
-    <div class="date-chip" id="date-chip">加载中…</div>
-  </header>
-
-  <!-- 板块一：AI 新闻 -->
-  <section>
-    <h2><span class="bar"></span>今日 AI 新闻 <span class="en">AI NEWS</span></h2>
-    <div id="news-list"></div>
-  </section>
-
-  <!-- 板块三：AI 舆情指数 -->
-  <section>
-    <h2><span class="bar"></span>AI 舆情指数 <span class="en">SENTIMENT INDEX</span></h2>
-
-    <div class="chart-grid">
-      <div class="chart-panel">
-        <div class="chart-title">综合舆情指数（0-100）</div>
-        <div id="chart-gauge" class="chart"></div>
-      </div>
-      <div class="chart-panel">
-        <div class="chart-title">舆情五维拆解</div>
-        <div id="chart-radar" class="chart"></div>
-      </div>
-    </div>
-
-    <div class="chart-panel" style="margin-top:14px;">
-      <div class="chart-title">舆情指数趋势 · 随每日数据累积</div>
-      <div id="chart-sentiment-trend" class="chart chart-wide"></div>
-    </div>
-
-    <div style="margin-top:14px;" class="analysis">
-      <div class="label">🔍 今日舆情解读</div>
-      <div id="sentiment-summary"></div>
-    </div>
-  </section>
-
-  <!-- 板块二：板块流向趋势分析 -->
-  <section>
-    <h2><span class="bar"></span>板块流向趋势分析 <span class="en">SECTOR FLOW</span></h2>
-
-    <div class="index-row" id="index-row"></div>
-
-    <div class="chart-grid">
-      <div class="chart-panel">
-        <div class="chart-title">AI 相关概念板块 · 主力净流入（亿元）</div>
-        <div id="chart-concept" class="chart"></div>
-      </div>
-      <div class="chart-panel">
-        <div class="chart-title">申万一级行业 · 主力净流入（亿元）</div>
-        <div id="chart-industry" class="chart"></div>
-      </div>
-    </div>
-
-    <div class="chart-panel" style="margin-top:14px;">
-      <div class="chart-title">AI 概念板块主力净流入趋势（亿元）· 随每日数据累积</div>
-      <div id="chart-trend" class="chart chart-wide"></div>
-    </div>
-
-    <div style="margin-top:14px;">
-      <div class="chart-title" style="font-size:14px;color:var(--muted);margin-bottom:8px;">
-        AI 概念板块内 · 个股主力净流入 TOP（亿元）
-      </div>
-      <table>
-        <thead><tr>
-          <th>股票</th><th>代码</th>
-          <th class="num">主力净流入（亿元）</th><th class="num">涨跌幅</th>
-        </tr></thead>
-        <tbody id="stock-tbody"></tbody>
-      </table>
-    </div>
-
-    <div style="margin-top:18px;" class="analysis">
-      <div class="label">📈 趋势点评</div>
-      <div id="analysis-text"></div>
-    </div>
-  </section>
-
-  <footer>
-    数据来源：Wind / 东方财富 / 公开新闻 · 仅供研究参考，不构成投资建议<br/>
-    Powered by GitHub Pages
-  </footer>
-</div>
-
-<script src="data.js"></script>
-<script>
-  // ---------- 基础信息 ----------
-  document.getElementById("site-title").textContent = DATA.title;
-  document.getElementById("date-chip").textContent = DATA.date + " · " + DATA.weekday;
-  document.getElementById("analysis-text").textContent = DATA.analysis;
-
-  // ---------- 舆情指数 ----------
-  document.getElementById("sentiment-summary").textContent = DATA.sentiment.summary;
-
-  // 综合仪表盘
-  const gauge = echarts.init(document.getElementById("chart-gauge"));
-  const sChange = DATA.sentiment.change;
-  gauge.setOption({
-    series: [{
-      type: "gauge", min: 0, max: 100, startAngle: 210, endAngle: -30,
-      progress: { show: true, width: 16, roundCap: true,
-        itemStyle: { color: "#58a6ff" } },
-      axisLine: { roundCap: true, lineStyle: { width: 16, color: [[1, "#2a3140"]] } },
-      pointer: { show: false }, axisTick: { show: false },
-      splitLine: { show: false }, axisLabel: { show: false },
-      detail: {
-        valueAnimation: true, fontSize: 46, offsetCenter: [0, "-5%"],
-        color: "#e6edf3", fontWeight: 700,
-      },
-      title: {
-        offsetCenter: [0, "35%"], fontSize: 14, color: "#8b949e",
-        formatter: () => DATA.sentiment.level +
-          " · 较前日 " + (sChange > 0 ? "+" : "") + sChange,
-      },
-      data: [{ value: DATA.sentiment.score }],
-    }]
-  });
-  window.addEventListener("resize", () => gauge.resize());
-
-  // 五维雷达
-  const radar = echarts.init(document.getElementById("chart-radar"));
-  radar.setOption({
-    radar: {
-      indicator: DATA.sentiment.dimensions.map(d => ({ name: d.name, max: 100 })),
-      axisName: { color: "#8b949e", fontSize: 12 },
-      splitLine: { lineStyle: { color: "#2a3140" } },
-      splitArea: { areaStyle: { color: ["rgba(42,49,64,.15)", "transparent"] } },
-      axisLine: { lineStyle: { color: "#2a3140" } },
-      radius: "65%",
+<!-- 结构化数据 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://tingmo.github.io/ai-daily/#website",
+      "url": "https://tingmo.github.io/ai-daily/",
+      "name": "AI 每日观察",
+      "description": "每日 AI 资讯与 A 股 AI 板块资金流向研究",
+      "inLanguage": "zh-CN",
+      "publisher": { "@id": "https://tingmo.github.io/ai-daily/#org" }
     },
-    series: [{
-      type: "radar",
-      data: [{
-        value: DATA.sentiment.dimensions.map(d => d.value),
-        lineStyle: { color: "#58a6ff", width: 2 },
-        itemStyle: { color: "#58a6ff" },
-        areaStyle: { color: "rgba(88,166,255,.25)" },
-      }],
-      tooltip: { show: true },
-    }]
-  });
-  window.addEventListener("resize", () => radar.resize());
+    {
+      "@type": "Organization",
+      "@id": "https://tingmo.github.io/ai-daily/#org",
+      "name": "AI 每日观察",
+      "url": "https://tingmo.github.io/ai-daily/"
+    },
+    {
+      "@type": "Dataset",
+      "name": "AI 板块每日资金流向数据集",
+      "description": "AI 相关概念板块与申万一级行业主力资金净流入、AI 舆情指数每日序列数据。",
+      "url": "https://tingmo.github.io/ai-daily/data.js",
+      "creator": { "@id": "https://tingmo.github.io/ai-daily/#org" },
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    }
+  ]
+}
+</script>
 
-  // 舆情趋势线
-  const sTrend = echarts.init(document.getElementById("chart-sentiment-trend"));
-  sTrend.setOption({
-    grid: { left: 50, right: 30, top: 20, bottom: 30 },
-    tooltip: { trigger: "axis" },
-    xAxis: { type: "category", data: DATA.sentimentHistory.map(h => h.date), axisLabel },
-    yAxis: { type: "value", min: 0, max: 100, axisLabel, 
-             splitLine: { lineStyle: { color: "#2a3140" } } },
-    series: [{
-      type: "line", smooth: true, symbolSize: 8,
-      data: DATA.sentimentHistory.map(h => h.score),
-      lineStyle: { color: "#bc8cff", width: 3 },
-      itemStyle: { color: "#bc8cff" },
-      areaStyle: { color: "rgba(188,140,255,.15)" },
-      markArea: DATA.sentimentHistory.length > 1 ? {
-        silent: true,
-        data: [
-          [{ yAxis: 70, name: "偏热区", itemStyle: { color: "rgba(248,81,78,.06)" }, label: { color: "#f8514e", fontSize: 11, position: "insideTopRight" } }, { yAxis: 100 }],
-          [{ yAxis: 0, name: "偏冷区", itemStyle: { color: "rgba(38,166,154,.06)" }, label: { color: "#26a69a", fontSize: 11, position: "insideBottomRight" } }, { yAxis: 30 }]
-        ]
-      } : undefined,
-    }]
-  });
-  window.addEventListener("resize", () => sTrend.resize());
+<!-- 样式 -->
+<link rel="stylesheet" href="./assets/css/style.css" />
+</head>
 
-  // ---------- 新闻列表 ----------
-  const newsHtml = DATA.news.map(n => `
-    <div class="news-card">
-      <span class="tag">${n.tag}</span>
-      <h3><a href="${n.url}" target="_blank" rel="noopener">${n.title}</a></h3>
-      <p>${n.summary}</p>
-      <div class="src">来源：${n.source}</div>
-    </div>`).join("");
-  document.getElementById("news-list").innerHTML = newsHtml;
+<body id="top">
+<!-- ==================== 顶部导航 ==================== -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="logo">AI</span>
+      <span class="brand-text">
+        <strong id="nav-brand">AI 每日观察</strong>
+        <em id="nav-sub">AI Daily Insight</em>
+      </span>
+    </a>
 
-  // ---------- 指数表现 ----------
-  const fmt = v => (v > 0 ? "+" : "") + v.toFixed(2) + "%";
-  const cls = v => (v > 0 ? "up" : v < 0 ? "down" : "");
-  document.getElementById("index-row").innerHTML = DATA.indexPerformance.map(i => `
-    <div class="index-card">
-      <div class="name">${i.name}</div>
-      <div class="val ${cls(i.change)}">${fmt(i.change)}</div>
-      <div class="note">${i.note}</div>
-    </div>`).join("");
+    <nav class="nav" aria-label="主导航">
+      <a href="#news">AI 新闻</a>
+      <a href="#sentiment">舆情指数</a>
+      <a href="#flow">资金流向</a>
+      <a href="#comment">每日点评</a>
+      <span class="nav-date" id="nav-date"></span>
+    </nav>
 
-  // ---------- 个股 TOP ----------
-  document.getElementById("stock-tbody").innerHTML = DATA.stockFlowTop.map(s => `
-    <tr>
-      <td>${s.name}</td><td style="color:var(--muted)">${s.code}</td>
-      <td class="num ${cls(s.value)}">${s.value.toFixed(2)}</td>
-      <td class="num ${s.change == null ? "" : cls(s.change)}">${s.change == null ? "—" : fmt(s.change)}</td>
-    </tr>`).join("");
+    <div class="header-tools">
+      <span class="live"><span class="dot"></span>每日 09:00 自动更新</span>
+      <span class="updated" id="updated-at"></span>
+      <button class="icon-btn" id="theme-toggle" title="切换主题" aria-label="切换主题">☾</button>
+    </div>
+  </div>
 
-  // ---------- ECharts ----------
-  const axisLabel = { color: "#8b949e", fontSize: 12 };
-  function barChart(id, data) {
-    const sorted = [...data].sort((a, b) => a.value - b.value);
-    const chart = echarts.init(document.getElementById(id));
-    chart.setOption({
-      grid: { left: 90, right: 40, top: 10, bottom: 30 },
-      xAxis: { type: "value", axisLabel: { ...axisLabel, formatter: v => v + "亿" },
-               splitLine: { lineStyle: { color: "#2a3140" } } },
-      yAxis: { type: "category", data: sorted.map(d => d.name), axisLabel },
-      tooltip: { trigger: "axis", valueFormatter: v => v + " 亿元" },
-      series: [{
-        type: "bar", barMaxWidth: 18,
-        data: sorted.map(d => ({
-          value: d.value,
-          itemStyle: { color: d.value >= 0 ? "#f8514e" : "#26a69a", borderRadius: 3 }
-        }))
-      }]
-    });
-    window.addEventListener("resize", () => chart.resize());
+  <!-- 行情跑马灯 -->
+  <div class="ticker" aria-label="行情概览">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ==================== Hero ==================== -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow" id="hero-eyebrow">收盘复盘</div>
+      <h1 id="hero-title"></h1>
+      <p class="lead" id="hero-lead"></p>
+      <div class="hero-tags" id="hero-tags"></div>
+    </div>
+    <div class="kpi-grid" id="kpi-grid"></div>
+  </section>
+
+  <!-- ==================== 板块一：AI 新闻 ==================== -->
+  <section class="block" id="news">
+    <div class="section-head">
+      <span class="section-index">01</span>
+      <h2>AI 新闻</h2>
+      <span class="en">AI News</span>
+      <span class="line"></span>
+      <span class="hint" id="news-count" style="font-size:12px;color:var(--muted)"></span>
+    </div>
+    <div class="section-desc">每日精选 AI 领域重要事件，覆盖产业、政策、前沿研究与海外市场。</div>
+
+    <div class="news-toolbar" id="news-tabs"></div>
+    <div class="news-grid" id="news-grid"></div>
+  </section>
+
+  <!-- ==================== 板块二：AI 舆情指数 ==================== -->
+  <section class="block" id="sentiment">
+    <div class="section-head">
+      <span class="section-index">02</span>
+      <h2>AI 舆情指数</h2>
+      <span class="en">Sentiment Index</span>
+      <span class="line"></span>
+    </div>
+    <div class="section-desc">综合新闻热度、政策关注度、社媒讨论度、机构研报、市场情绪五个维度的 0-100 综合评分。</div>
+
+    <div class="grid-3">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>综合舆情指数</h3>
+          <span class="hint" id="sentiment-level"></span>
+        </div>
+        <div class="chart-body">
+          <div id="chart-gauge" class="chart"></div>
+          <div style="text-align:center;margin-top:-10px">
+            <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">当前</span>
+            <span style="font-family:var(--mono);font-size:26px;font-weight:700;margin-left:6px" id="sentiment-score"></span>
+            <div class="k-sub" id="sentiment-chg" style="margin-top:2px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>舆情五维拆解</h3>
+          <span class="hint">满分 100</span>
+        </div>
+        <div class="chart-body"><div id="chart-radar" class="chart"></div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>分项明细</h3>
+          <span class="hint">含较前日变化</span>
+        </div>
+        <div class="dim-list" id="dim-list"></div>
+      </div>
+    </div>
+
+    <div class="grid-2 mt16">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>舆情指数趋势</h3>
+          <span class="hint">随每日数据累积形成趋势</span>
+        </div>
+        <div class="chart-body"><div id="chart-sentiment-trend" class="chart"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>今日舆情解读</h3>
+          <span class="hint">AI 综合研判</span>
+        </div>
+        <div class="chart-body" style="padding:18px 20px">
+          <p id="sentiment-summary" style="font-size:14px;color:var(--text-2);text-align:justify"></p>
+          <div class="c-meta" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap">
+            <span>分档参考</span><span class="up-text">&gt;70 偏热</span><span>46-70 中性</span><span class="down-text">&lt;45 偏冷</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 板块三：板块资金流向 ==================== -->
+  <section class="block" id="flow">
+    <div class="section-head">
+      <span class="section-index">03</span>
+      <h2>板块资金流向</h2>
+      <span class="en">Capital Flow</span>
+      <span class="line"></span>
+    </div>
+    <div class="section-desc">主力资金净流入数据，红 = 净流入，绿 = 净流出（A 股配色惯例）。</div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>AI 相关概念板块 · 主力净流入</h3>
+          <span class="hint">单位：亿元</span>
+        </div>
+        <div class="chart-body"><div id="chart-concept" class="chart"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>申万一级行业 · 主力净流入</h3>
+          <span class="hint">单位：亿元</span>
+        </div>
+        <div class="chart-body"><div id="chart-industry" class="chart"></div></div>
+      </div>
+    </div>
+
+    <div class="grid-2 mt16">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>AI 概念板块主力净流入趋势</h3>
+          <span class="hint">随每日数据累积</span>
+        </div>
+        <div class="chart-body"><div id="chart-flow-trend" class="chart"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>AI 概念板块内 · 个股主力净流入 TOP</h3>
+          <span class="hint">点击表头可排序</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="name">股票</th>
+                <th>代码</th>
+                <th class="num" data-sort="value">主力净流入（亿元）</th>
+                <th class="num" data-sort="change">涨跌幅</th>
+              </tr>
+            </thead>
+            <tbody id="stock-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="points" id="points"></div>
+  </section>
+
+  <!-- ==================== 每日点评 ==================== -->
+  <section class="block" id="comment">
+    <div class="section-head">
+      <span class="section-index">04</span>
+      <h2>每日点评</h2>
+      <span class="en">Daily Comment</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="comment">
+      <div class="c-title">研究与观点</div>
+      <p id="analysis-text"></p>
+      <div class="c-meta" id="analysis-meta"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== 页脚 ==================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <strong>AI 每日观察 · AI Daily Insight</strong>
+        <p>每日自动更新的 AI 资讯与 A 股 AI 板块资金流向研究站。数据来自公开新闻与行情信息，每日 09:00 自动刷新。</p>
+      </div>
+      <div class="footer-col">
+        <h4>栏目</h4>
+        <ul>
+          <li><a href="#news">AI 新闻</a></li>
+          <li><a href="#sentiment">AI 舆情指数</a></li>
+          <li><a href="#flow">板块资金流向</a></li>
+          <li><a href="#comment">每日点评</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>数据</h4>
+        <ul>
+          <li><a href="./data.js" target="_blank" rel="noopener">数据源文件 data.js</a></li>
+          <li><a href="./sitemap.xml" target="_blank" rel="noopener">站点地图</a></li>
+          <li><a href="./README.md" target="_blank" rel="noopener">说明文档</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>来源</h4>
+        <ul>
+          <li>Wind / 东方财富</li>
+          <li>证券时报 / 中国日报</li>
+          <li>公开新闻与公告</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>免责声明：</strong>本站内容基于公开信息整理，仅供研究与学习参考，不构成任何投资建议。数据可能存在延迟或误差，据此操作风险自负。
+      行情配色遵循 A 股惯例（红涨绿跌）。<br />
+      © <span id="footer-year"></span> AI 每日观察 · Powered by GitHub Pages
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="to-top" title="回到顶部" aria-label="回到顶部">↑</button>
+
+<script src="./echarts.min.js"></script>
+<script src="./data.js"></script>
+<script src="./assets/js/app.js"></script>
+<script>
+  // 页脚年份 + 导航站点名（从数据文件读取，保证每日自动更新时同步）
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+  if (typeof DATA !== "undefined") {
+    document.getElementById("nav-brand").textContent = DATA.site.title;
+    document.getElementById("nav-sub").textContent = DATA.site.subtitle;
   }
-  barChart("chart-concept", DATA.conceptFlow);
-  barChart("chart-industry", DATA.industryFlow);
-
-  // 趋势线
-  const trend = echarts.init(document.getElementById("chart-trend"));
-  trend.setOption({
-    grid: { left: 50, right: 30, top: 20, bottom: 30 },
-    tooltip: { trigger: "axis", valueFormatter: v => v + " 亿元" },
-    xAxis: { type: "category", data: DATA.history.map(h => h.date), axisLabel },
-    yAxis: { type: "value", axisLabel: { ...axisLabel, formatter: v => v + "亿" },
-             splitLine: { lineStyle: { color: "#2a3140" } } },
-    series: [{
-      type: "line", smooth: true, symbolSize: 8,
-      data: DATA.history.map(h => h.aiNetInflow),
-      lineStyle: { color: "#58a6ff", width: 3 },
-      itemStyle: { color: "#58a6ff" },
-      areaStyle: { color: "rgba(88,166,255,.15)" },
-      markLine: { silent: true, symbol: "none",
-        lineStyle: { color: "#6e7681", type: "dashed" },
-        data: [{ yAxis: 0 }], label: { show: false } }
-    }]
-  });
-  window.addEventListener("resize", () => trend.resize());
 </script>
 </body>
 </html>

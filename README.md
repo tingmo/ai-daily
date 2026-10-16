@@ -1,71 +1,69 @@
-# AI 每日观察
+# AI 每日观察 · AI Daily Insight
 
-一个部署在 GitHub Pages 上的每日 AI 资讯站，包含两个板块：
+一个部署在 GitHub Pages 上的专业级 AI 资讯与资金流向研究站，每日 09:00 自动更新。
 
-1. **AI 新闻** —— 每日精选 AI 要闻卡片
-2. **AI 舆情指数** —— 综合舆情仪表盘（0-100）、五维拆解雷达图（新闻热度/社媒讨论度/机构研报/市场情绪/政策关注度）、趋势线
-3. **板块流向趋势分析** —— 概念板块 / 申万行业主力资金净流入、个股 TOP、趋势折线图、每日点评
+**线上地址：** https://tingmo.github.io/ai-daily/
 
-纯静态页面（`index.html` + `data.js`），无需构建，GitHub Pages 直接托管。
+## 栏目结构
 
-## 文件说明
+| 序号 | 栏目 | 内容 |
+|---|---|---|
+| 01 | AI 新闻 | 每日精选 AI 要闻，按标签筛选（产业大会 / 政策治理 / 前沿研究 / 海外市场 / A股盘面） |
+| 02 | AI 舆情指数 | 0-100 综合评分仪表盘、五维雷达（新闻热度 / 政策关注度 / 社媒讨论度 / 机构研报 / 市场情绪）、分项进度条、趋势曲线 |
+| 03 | 板块资金流向 | AI 概念板块与申万一级行业主力净流入条形图、板块资金趋势曲线、个股净流入 TOP 榜（可排序）、研究结论要点 |
+| 04 | 每日点评 | 研究与观点全文 |
 
-| 文件 | 作用 |
-|---|---|
-| `index.html` | 页面结构 + 样式 + 渲染逻辑，一般不用改 |
-| `data.js` | **每日数据**，每天只改这个文件 |
+## 项目结构
 
-## 每日更新流程（日常只需这两步）
+```
+ai-daily/
+├── index.html          # 页面结构 + SEO 配置（meta / OG / JSON-LD）
+├── data.js             # ★ 每日数据（只需维护这个文件）
+├── assets/
+│   ├── css/style.css   # 样式（浅色/深色双主题，响应式 + 打印样式）
+│   └── js/app.js       # 渲染逻辑（页面构建、图表、主题切换、表格排序）
+├── echarts.min.js      # 图表库（本地加载，不依赖外部 CDN）
+├── favicon.svg         # 站点图标
+├── robots.txt          # 搜索引擎抓取规则
+├── sitemap.xml         # 站点地图（changefreq: daily）
+├── .nojekyll           # 关闭 GitHub Pages 的 Jekyll 处理
+└── README.md
+```
+
+## 每日更新（自动化，无需手动）
+
+每天 09:00 自动执行：抓取 AI 新闻 + 最近交易日 A 股 AI 板块资金流向 + 评估舆情指数 → 更新 `data.js` → `git commit + push`。
+
+如需手动更新（例如周末补更）：
 
 ```bash
-# 1. 编辑 data.js 填入当天数据（新闻、板块资金、点评）
-# 2. 提交并推送
+# 编辑 data.js 后
 git add data.js
 git commit -m "update: 2026-10-16 每日数据"
 git push
 ```
 
-推送后 GitHub Pages 会自动更新（约 1 分钟内生效）。
+## 设计规范
 
-## 首次部署到 GitHub Pages
+- **配色惯例**：红 = 涨 / 净流入，绿 = 跌 / 净流出（A 股惯例，与欧美相反）
+- **主题**：默认浅色专业门户风格，右上角可切换深色，选择记忆在 localStorage
+- **数据缺失**：`data.js` 中数值可为 `null`，页面显示「—」，不编造数据
+- **趋势累积**：`history`（板块资金）与 `sentimentHistory`（舆情指数）每天各追加一条，图表自动形成趋势曲线
 
-### 1. 在 GitHub 上新建仓库
-
-登录 GitHub → 右上角 **+** → **New repository** → 名称填 `ai-daily` → 选 **Public** → **不要**勾选任何初始化选项（README/.gitignore/license 都不要）→ Create。
-
-### 2. 本地初始化并推送
-
-在 `ai-daily` 文件夹目录下执行（把 `你的用户名` 换成你的 GitHub 用户名）：
+## 首次部署（已完成，备查）
 
 ```bash
-cd ai-daily
 git init
 git add .
 git commit -m "init: AI 每日观察站点"
 git branch -M main
-git remote add origin https://github.com/你的用户名/ai-daily.git
+git remote add origin https://github.com/tingmo/ai-daily.git
 git push -u origin main
 ```
 
-> 第一次 push 会弹出 GitHub 登录窗口（或要求输入用户名 + Personal Access Token，Token 在 GitHub → Settings → Developer settings → Personal access tokens 生成，勾选 repo 权限）。
+仓库 → Settings → Pages → Source 选 **Deploy from a branch** → Branch `main` / `(root)` → Save。
+默认地址：`https://tingmo.github.io/ai-daily/`（Custom domain 留空即可，无需绑定域名）。
 
-### 3. 开启 GitHub Pages
+## 免责声明
 
-打开仓库页面 → **Settings** → 左侧 **Pages** → **Build and deployment** 下的 Source 选择 **Deploy from a branch** → Branch 选 **main**、目录选 **/(root)** → Save。
-
-### 4. 访问
-
-等 1~2 分钟，访问：
-
-```
-https://你的用户名.github.io/ai-daily/
-```
-
-以后每天只需要执行「每日更新流程」的两条命令即可。
-
-## 数据说明
-
-- 涨跌配色遵循 A 股惯例：**红 = 涨 / 净流入，绿 = 跌 / 净流出**
-- `data.js` 中的 `history`（板块资金）和 `sentimentHistory`（舆情指数）每天各追加一条当日数据，两条趋势线就自动各多一个点，坚持记录即可形成完整的趋势曲线
-- 舆情指数为 0-100 综合评估值：基于当日新闻数量/重要度、社媒讨论度、机构研报倾向、市场情绪（涨跌/资金）、政策动态五个维度打分后加权，分项数据在 `sentiment.dimensions` 中
-- 图表基于 ECharts（CDN 加载），需联网访问 jsdelivr；国内网络一般可正常访问
+本站内容基于公开信息整理，仅供研究与学习参考，不构成投资建议。

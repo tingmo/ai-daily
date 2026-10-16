@@ -420,6 +420,39 @@
     renderCharts();
   }
 
+  /* ---------------- 数据来源与核验 ---------------- */
+  function renderSources() {
+    const list = DATA.sources || [];
+    $("sources-count").textContent = `共 ${list.length} 条来源`;
+    $("sources-note").textContent = DATA.sourcesNote || "";
+
+    $("source-grid").innerHTML = list
+      .map(
+        (s) => `<article class="source-card">
+        <div class="s-head">
+          <span class="s-cat">${s.category}</span>
+          <span class="s-date">${s.date || ""}</span>
+        </div>
+        <h3><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.title}</a></h3>
+        <div class="s-pub">${s.publisher || ""}</div>
+        ${s.checkPoint ? `<div class="s-check"><b>核验要点 ·</b> ${s.checkPoint}</div>` : ""}
+        <div class="s-covers">${(s.covers || []).map((c) => `<span>${c}</span>`).join("")}</div>
+      </article>`
+      )
+      .join("");
+
+    // 各图表 / 表格面板上的「原始来源」快捷链接
+    document.querySelectorAll(".src-link[data-src]").forEach((a) => {
+      const s = list[Number(a.dataset.src)];
+      if (!s) {
+        a.style.display = "none";
+        return;
+      }
+      a.href = s.url;
+      a.title = `${s.publisher} · ${s.title}`;
+    });
+  }
+
   /* ---------------- 主题切换 ---------------- */
   function initTheme() {
     const saved = localStorage.getItem("ai-daily-theme");
@@ -473,6 +506,7 @@
     renderStockTable();
     bindTableSort();
     renderAnalysis();
+    renderSources();
     renderCharts();
     initScroll();
   });

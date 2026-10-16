@@ -86,6 +86,7 @@
       <a href="#sentiment">舆情指数</a>
       <a href="#flow">资金流向</a>
       <a href="#comment">每日点评</a>
+      <a href="#sources">数据来源</a>
       <span class="nav-date" id="nav-date"></span>
     </nav>
 
@@ -209,14 +210,14 @@
       <div class="panel">
         <div class="panel-head">
           <h3>AI 相关概念板块 · 主力净流入</h3>
-          <span class="hint">单位：亿元</span>
+          <span class="hint">单位：亿元 · <a class="src-link" data-src="0" target="_blank" rel="noopener">原始来源 ↗</a></span>
         </div>
         <div class="chart-body"><div id="chart-concept" class="chart"></div></div>
       </div>
       <div class="panel">
         <div class="panel-head">
           <h3>申万一级行业 · 主力净流入</h3>
-          <span class="hint">单位：亿元</span>
+          <span class="hint">单位：亿元 · <a class="src-link" data-src="0" target="_blank" rel="noopener">原始来源 ↗</a></span>
         </div>
         <div class="chart-body"><div id="chart-industry" class="chart"></div></div>
       </div>
@@ -233,7 +234,7 @@
       <div class="panel">
         <div class="panel-head">
           <h3>AI 概念板块内 · 个股主力净流入 TOP</h3>
-          <span class="hint">点击表头可排序</span>
+          <span class="hint">点击表头可排序 · <a class="src-link" data-src="3" target="_blank" rel="noopener">明细来源 ↗</a></span>
         </div>
         <div class="table-wrap">
           <table>
@@ -269,6 +270,21 @@
       <div class="c-meta" id="analysis-meta"></div>
     </div>
   </section>
+
+  <!-- ==================== 数据来源与核验 ==================== -->
+  <section class="block" id="sources">
+    <div class="section-head">
+      <span class="section-index">05</span>
+      <h2>数据来源与核验</h2>
+      <span class="en">Sources &amp; Verification</span>
+      <span class="line"></span>
+      <span class="hint" style="font-size:12px;color:var(--muted)" id="sources-count"></span>
+    </div>
+    <div class="section-desc">每条数据均标注原始出处与核验要点，点击标题可跳转原文自行核对。</div>
+
+    <div class="notice" id="sources-note"></div>
+    <div class="source-grid" id="source-grid"></div>
+  </section>
 </main>
 
 <!-- ==================== 页脚 ==================== -->
@@ -286,6 +302,7 @@
           <li><a href="#sentiment">AI 舆情指数</a></li>
           <li><a href="#flow">板块资金流向</a></li>
           <li><a href="#comment">每日点评</a></li>
+          <li><a href="#sources">数据来源与核验</a></li>
         </ul>
       </div>
       <div class="footer-col">

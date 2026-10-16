@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>为什么我把 AI 舆情指数做成五维打分 · moomlt</title>
+  <meta name="description" content="把舆情拆成五个可以分别观察、分别出错的维度，再合成一个总分，让「哪里热、哪里冷」变得可讨论。" />
+  <link rel="canonical" href="https://www.moomlt.com/blog/ai-sentiment-index-design.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="为什么我把 AI 舆情指数做成五维打分" />
+  <meta property="og:url" content="https://www.moomlt.com/blog/ai-sentiment-index-design.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <article class="article">
+      <a class="a-back" href="/blog/">← 全部文章</a>
+      <h1>为什么我把 AI 舆情指数做成五维打分</h1>
+      <div class="a-meta"><span class="cat">投研方法</span><span>2026-10-08</span><span>#舆情 #指标设计 #情绪面</span></div>
+      <hr class="sep" />
+
+      <p>「市场情绪偏热」这种判断的问题是：它无法被检验。热在哪里、冷在哪里、和上周比变的是哪一部分，全都没有交代。所以我把它拆成了五个维度，分别打分（0–100），再加权合成一个总分。</p>
+
+      <h2>五个维度</h2>
+      <table>
+        <thead><tr><th>维度</th><th>观察对象</th><th>为什么单独拆出来</th></tr></thead>
+        <tbody>
+          <tr><td>政策关注度</td><td>监管表态、产业政策、会议与文件</td><td>政策驱动的行情与业绩驱动的行情，持续性差别很大</td></tr>
+          <tr><td>新闻热度</td><td>主流媒体的报道密度与倾向</td><td>反映信息的扩散速度，领先于资金动作</td></tr>
+          <tr><td>社媒讨论度</td><td>社交平台的讨论量、话题集中度</td><td>反映散户参与度，通常是行情的后验指标</td></tr>
+          <tr><td>机构研报</td><td>卖方观点的方向与分歧程度</td><td>分歧度本身是信息，一致预期往往意味着已经定价</td></tr>
+          <tr><td>市场情绪</td><td>涨跌幅、成交结构、资金流向</td><td>唯一直接可量化的「结果」维度</td></tr>
+        </tbody>
+      </table>
+
+      <h2>拆开之后能看见什么</h2>
+      <p>最有用的是<strong>结构性的背离</strong>。举几种典型组合：</p>
+      <ul>
+        <li><strong>政策与新闻双高、市场情绪低</strong> —— 产业热、市场冷。叙事走在价格前面，通常是资金还没跟上的阶段。</li>
+        <li><strong>市场情绪高、机构研报低</strong> —— 资金先行、卖方未跟。要么是资金错了，要么是卖方反应慢，需要区分。</li>
+        <li><strong>社媒讨论度高、新闻热度低</strong> —— 讨论集中在少数人手里，扩散度不足，多半是短期博弈。</li>
+        <li><strong>五个维度齐高</strong> —— 需要警惕。一致预期往往意味着可定价的空间已经被消耗。</li>
+      </ul>
+
+      <h2>关于合成分数的三点原则</h2>
+      <ol>
+        <li><strong>变化幅度要受限</strong>。除非有明确的重大事件，总分单日变动控制在小幅区间内。指标的意义在于<strong>连续可比</strong>，一天跳 30 分等于自废武功。</li>
+        <li><strong>变化量比绝对水平更重要</strong>。68 分是偏热还是中性并不重要，重要的是它从哪来、往哪去。</li>
+        <li><strong>打分必须能说清依据</strong>。每个维度的分数都要能对应到当天的具体事件或数据，否则就是在填数字。</li>
+      </ol>
+
+      <h2>它不是预测工具</h2>
+      <p>必须说清楚边界：舆情指数<strong>描述的是当下信息的分布状态，不是价格的预测器</strong>。极端读数附近，市场既可以反转也可以加速——指标只能告诉你「现在的共识有多强、边际在往哪个方向变」，不能告诉你会涨还是会跌。</p>
+      <p>把它当温度计用，别当方向盘用。温度计的价值在于：当所有人都觉得「没什么感觉」的时候，它能告诉你其实已经连续三天在升温了。</p>
+      <hr class="sep" />
+      <p><em>本文讨论的是指标构造方法，不涉及任何具体标的的判断。指数每日数值见 <a href="/daily/">AI 每日观察</a> 门户。</em></p>
+    </article>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/">首页</a> · <a href="/blog/">文章</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
+  </script>
+</body>
+</html>

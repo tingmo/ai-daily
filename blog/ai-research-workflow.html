@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的 AI 投研工作流：从信息过载到结构化日报 · moomlt</title>
+  <meta name="description" content="把每天的研究动作拆成「采集 — 校验 — 结构化 — 沉淀」四段，用固定口径替代随机刷新闻。" />
+  <link rel="canonical" href="https://www.moomlt.com/blog/ai-research-workflow.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="我的 AI 投研工作流：从信息过载到结构化日报" />
+  <meta property="og:url" content="https://www.moomlt.com/blog/ai-research-workflow.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <article class="article">
+      <a class="a-back" href="/blog/">← 全部文章</a>
+      <h1>我的 AI 投研工作流：从信息过载到结构化日报</h1>
+      <div class="a-meta"><span class="cat">投研方法</span><span>2026-10-16</span><span>#工作流 #自动化 #日报</span></div>
+      <hr class="sep" />
+
+      <p>研究做得久了会发现，最稀缺的不是信息，而是<strong>同一口径下的连续信息</strong>。今天在某个群里看到一条资金数据，明天在另一篇文章里看到同名指标却是完全相反的数值，两次都记住了，但复盘时无法比较——因为它们根本不是同一件事。</p>
+      <p>所以我把日常研究拆成了四段固定的动作。</p>
+
+      <h2>一、采集：限定来源，而不是扩大来源</h2>
+      <p>我的信息来源分三层：</p>
+      <table>
+        <thead><tr><th>层级</th><th>用途</th><th>例子</th></tr></thead>
+        <tbody>
+          <tr><td>一手</td><td>事实基准</td><td>交易所公告、公司年报与季报、中证指数官网、统计局</td></tr>
+          <tr><td>二手</td><td>效率补充</td><td>财经媒体的行情复盘、券商研报</td></tr>
+          <tr><td>社交</td><td>情绪温度</td><td>讨论热度、机构观点分歧</td></tr>
+        </tbody>
+      </table>
+      <p>关键不在「找得多」，而在<strong>每一条都标清属于哪一层</strong>。二手来源永远标注「需核实原文」，社交信息只用来判断情绪，不用来支撑事实。</p>
+
+      <h2>二、校验：先问口径，再看数值</h2>
+      <p>这是最容易被跳过、也最容易踩坑的一步。同一个「AI 板块主力净流入」，在不同数据商那里可以是完全相反的符号——原因通常是<strong>成分股范围不同、统计口径不同（超大单+大单 vs 全部主动买单）</strong>。</p>
+      <p>我的做法是：任何资金类指标进结论之前，先写清楚三件事——谁统计的、什么口径、什么时点。三件事里缺一件，这个数字就只能当参考，不能进结论。</p>
+
+      <h2>三、结构化：每天只填同一张表</h2>
+      <p>固定的字段比漂亮的图表重要得多。我每天只更新这几类字段：</p>
+      <ul>
+        <li><strong>盘面</strong>：关键指数的点位与涨跌幅</li>
+        <li><strong>资金</strong>：概念板块与申万一级行业的主力净流入、个股 TOP 榜</li>
+        <li><strong>舆情</strong>：五维打分（政策关注度 / 新闻热度 / 社媒讨论度 / 机构研报 / 市场情绪）</li>
+        <li><strong>结论</strong>：盘面概况 → 资金面与主线 → 结构亮点 → 后市观点</li>
+      </ul>
+      <p>字段固定下来之后，连续记录十几二十个交易日，趋势线自然就有意义了。真正有价值的不是某一天的数字，而是<strong>这个数字在历史序列里处于什么位置</strong>。</p>
+
+      <h2>四、沉淀：让输出自动化，把判断留给人</h2>
+      <p>采集、填表、推送这些环节我已经全部自动化：每天定时抓取、写入结构化数据文件、构建页面并发布。人的精力只留在两件事上——<strong>判断口径是否可靠、推演结论是否站得住</strong>。</p>
+      <blockquote><p>自动化能解决「我忘了看」，解决不了「我看错了」。</p></blockquote>
+      <p>这也是我坚持在每份日报里保留「数据来源与核验」一节的原因：机器可以替我做整理，但核对的路径必须留给人。</p>
+
+      <h2>一点经验</h2>
+      <ul>
+        <li>先定字段，再谈可视化。字段是骨架，图表只是衣服。</li>
+        <li>历史序列只追加、不覆盖。单日数据的噪声远大于信号。</li>
+        <li>搜不到的项如实留空。一旦开始估算填充，整条序列就失去了可信度。</li>
+        <li>周期长一点看。三天的趋势叫波动，三个月的趋势才叫趋势。</li>
+      </ul>
+      <p>后续我会把其中几个环节的具体实现（数据源选择、指标定义、自动化流水线的搭建）陆续写出来。</p>
+    </article>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/">首页</a> · <a href="/blog/">文章</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
+  </script>
+</body>
+</html>

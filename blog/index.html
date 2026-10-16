@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文章 · moomlt 投资研究笔记</title>
+  <meta name="description" content="全部文章：投研方法、半导体存储产业链跟踪、指标设计。" />
+  <link rel="canonical" href="https://www.moomlt.com/blog/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <header class="hero" style="padding: 48px 0 36px;">
+      <h1 style="font-size:28px;">全部文章</h1>
+      <p class="sub">按时间倒序。方法类文章讲框架与口径，行业类文章讲产业链跟踪。</p>
+    </header>
+
+    <div class="post-list">
+      <a class="post-card" href="/blog/ai-research-workflow.html">
+        <div class="p-meta"><span class="p-cat">投研方法</span><span>2026-10-16</span></div>
+        <h2>我的 AI 投研工作流：从信息过载到结构化日报</h2>
+        <p>把每天的研究动作拆成「采集 — 校验 — 结构化 — 沉淀」四段，用固定口径替代随机刷新闻。</p>
+        <div class="p-tags"><span>工作流</span><span>自动化</span><span>日报</span></div>
+      </a>
+      <a class="post-card" href="/blog/semiconductor-memory-tracking-framework.html">
+        <div class="p-meta"><span class="p-cat">半导体</span><span>2026-10-12</span></div>
+        <h2>存储产业链跟踪框架：从颗粒价格到模组厂利润</h2>
+        <p>把存储跟踪链条拆成颗粒价格、原厂产能、模组库存、下游需求四个可以独立观察的环节。</p>
+        <div class="p-tags"><span>存储</span><span>DRAM</span><span>NAND</span><span>产业链</span></div>
+      </a>
+      <a class="post-card" href="/blog/ai-sentiment-index-design.html">
+        <div class="p-meta"><span class="p-cat">投研方法</span><span>2026-10-08</span></div>
+        <h2>为什么我把 AI 舆情指数做成五维打分</h2>
+        <p>把舆情拆成五个可以分别观察、分别出错的维度，再合成一个总分。</p>
+        <div class="p-tags"><span>舆情</span><span>指标设计</span><span>情绪面</span></div>
+      </a>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
+  </script>
+</body>
+</html>

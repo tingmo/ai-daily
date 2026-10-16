@@ -1,62 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>moomlt · 站点升级中</title>
-<meta name="robots" content="noindex" />
-<meta name="theme-color" content="#f5f6f8" />
-<!--
-  临时占位页（安全网，仅过渡期使用）：
-  本仓库正在从「Deploy from a branch」切换到「GitHub Actions」部署。
-  · 切换前：Pages 仍以仓库根为站点根，数据门户实际位于 /public/daily/
-  · 切换后：根路径由 Astro 构建出的博客首页接管，本文件即失效可删
-  下面的脚本会自动探测门户位置并跳转，无需手动改。
--->
-<link rel="canonical" href="https://www.moomlt.com/daily/" />
-<style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-         background: #f5f6f8; color: #15181e; margin: 0; }
-  .card { max-width: 520px; margin: 14vh auto; padding: 32px; background: #fff;
-          border: 1px solid #e2e5ea; border-radius: 14px; box-shadow: 0 8px 24px rgba(16,24,40,.06); }
-  h1 { font-size: 20px; font-weight: 500; margin: 0 0 12px; }
-  p { color: #454c58; line-height: 1.7; margin: 0 0 14px; }
-  .tag { display: inline-block; font-size: 12px; color: #124a92; background: #e9f0fa;
-         border-radius: 999px; padding: 3px 11px; margin-bottom: 14px; }
-  a { color: #1a5fb4; }
-  .links { margin-top: 18px; padding-top: 16px; border-top: 1px dashed #e2e5ea; font-size: 14px; }
-  .links span { color: #6b7383; }
-</style>
-</head>
-<body>
-  <div class="card">
-    <span class="tag">正在升级为博客主站</span>
-    <h1>数据门户已迁移</h1>
-    <p>站点结构正在调整：主站改为个人博客，AI 每日观察数据门户移至 <code>/daily/</code>。正在自动跳转……</p>
-    <div class="links">
-      <span>未自动跳转？</span>
-      <a href="/daily/" id="link-primary">进入 AI 每日观察 →</a>
-    </div>
-  </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>moomlt · 投资研究笔记</title>
+  <meta name="description" content="关注半导体存储与 AI 板块的投资研究笔记：每日 AI 资讯与板块资金流向数据门户、投研方法、产业链跟踪框架。" />
+  <meta name="keywords" content="投资研究,半导体,存储,DRAM,NAND,AI板块,资金流向,舆情指数" />
+  <link rel="canonical" href="https://www.moomlt.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="moomlt · 投资研究笔记" />
+  <meta property="og:description" content="半导体存储与 AI 板块的投资研究笔记与每日数据门户。" />
+  <meta property="og:url" content="https://www.moomlt.com/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
   <script>
     (function () {
-      var candidates = ['/daily/', '/public/daily/'];
-      var link = document.getElementById('link-primary');
-      function probe(i) {
-        if (i >= candidates.length) return;
-        fetch(candidates[i], { method: 'HEAD', cache: 'no-store' })
-          .then(function (r) {
-            if (r.ok) {
-              if (link) link.setAttribute('href', candidates[i]);
-              window.location.replace(candidates[i]);
-            } else {
-              probe(i + 1);
-            }
-          })
-          .catch(function () { probe(i + 1); });
-      }
-      probe(0);
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
     })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <header class="hero">
+      <h1>投资研究笔记</h1>
+      <p class="sub">记录半导体存储、AI 板块的跟踪框架与研究方法。关注产业链传导、资金口径与可检验的判断，而不是消息本身。</p>
+      <div class="meta-line">持续更新 · 每日 09:00 自动发布当日 AI 数据日报</div>
+    </header>
+
+    <a class="portal-card" href="/daily/">
+      <div class="icon">📊</div>
+      <div>
+        <h3>AI 每日观察 · 数据门户</h3>
+        <p>AI 新闻 · 舆情指数 · 板块资金流向 · 数据来源核验，每个交易日 09:00 自动更新</p>
+      </div>
+      <span class="go">→</span>
+    </a>
+
+    <div class="post-list">
+      <a class="post-card" href="/blog/ai-research-workflow.html">
+        <div class="p-meta"><span class="p-cat">投研方法</span><span>2026-10-16</span></div>
+        <h2>我的 AI 投研工作流：从信息过载到结构化日报</h2>
+        <p>把每天的研究动作拆成「采集 — 校验 — 结构化 — 沉淀」四段，用固定口径替代随机刷新闻，是这套工作流唯一想解决的问题。</p>
+        <div class="p-tags"><span>工作流</span><span>自动化</span><span>日报</span></div>
+      </a>
+      <a class="post-card" href="/blog/semiconductor-memory-tracking-framework.html">
+        <div class="p-meta"><span class="p-cat">半导体</span><span>2026-10-12</span></div>
+        <h2>存储产业链跟踪框架：从颗粒价格到模组厂利润</h2>
+        <p>存储是一个典型的周期行业，但「看懂周期」不等于「看懂利润」。把跟踪链条拆成颗粒价格、原厂产能、模组库存、下游需求四个环节。</p>
+        <div class="p-tags"><span>存储</span><span>DRAM</span><span>NAND</span><span>产业链</span></div>
+      </a>
+      <a class="post-card" href="/blog/ai-sentiment-index-design.html">
+        <div class="p-meta"><span class="p-cat">投研方法</span><span>2026-10-08</span></div>
+        <h2>为什么我把 AI 舆情指数做成五维打分</h2>
+        <p>单一情绪的合成数字最容易骗人。把舆情拆成五个可以分别观察、分别出错的维度，再合成一个总分，让「哪里热、哪里冷」变得可讨论。</p>
+        <div class="p-tags"><span>舆情</span><span>指标设计</span><span>情绪面</span></div>
+      </a>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/blog/">文章</a> · <a href="/about/">关于</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
   </script>
 </body>
 </html>

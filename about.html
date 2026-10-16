@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于 · moomlt 投资研究笔记</title>
+  <meta name="description" content="关于本站：内容范围、数据口径与免责声明。" />
+  <link rel="canonical" href="https://www.moomlt.com/about/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <article class="article">
+      <a class="a-back" href="/">← 返回首页</a>
+      <h1>关于本站</h1>
+      <div class="a-meta"><span class="cat">站点说明</span><span>更新于 2026-10-16</span></div>
+      <hr class="sep" />
+
+      <h2>这里写什么</h2>
+      <p>聚焦两条主线：<strong>半导体存储产业链</strong>（颗粒价格 → 原厂产能 → 模组库存 → 下游需求）与 <strong>AI 板块的资金与舆情结构</strong>。写方法、写框架、写口径，不追热点消息。</p>
+
+      <h2>数据门户</h2>
+      <p><a href="/daily/">AI 每日观察</a> 是本站的每日数据门户，每个交易日 09:00 自动更新，包含：</p>
+      <ul>
+        <li><strong>AI 新闻</strong>：每日精选要闻，标注来源与原文链接</li>
+        <li><strong>AI 舆情指数</strong>：五维打分（政策关注度 / 新闻热度 / 社媒讨论度 / 机构研报 / 市场情绪）+ 历史趋势</li>
+        <li><strong>板块资金流向</strong>：概念板块与申万行业主力净流入、个股 TOP 榜、每日点评</li>
+        <li><strong>数据来源与核验</strong>：每条数据标注原始出处与核对路径</li>
+      </ul>
+      <p>门户坚持两条原则：数据搜不到就如实标注「暂无数据」；资金类指标必须写清统计口径（不同数据商的口径差异可能使同一指标方向相反）。</p>
+
+      <h2>免责声明</h2>
+      <p>本站全部内容仅为个人研究记录与信息整理，<strong>不构成任何投资建议</strong>。市场有风险，投资需谨慎。引用数据的准确性以原始来源为准，如发现口径或数值问题欢迎指正。</p>
+    </article>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/">首页</a> · <a href="/blog/">文章</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
+  </script>
+</body>
+</html>

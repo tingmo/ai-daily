@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>存储产业链跟踪框架：从颗粒价格到模组厂利润 · moomlt</title>
+  <meta name="description" content="把存储跟踪链条拆成颗粒价格、原厂产能、模组库存、下游需求四个可以独立观察的环节。" />
+  <link rel="canonical" href="https://www.moomlt.com/blog/semiconductor-memory-tracking-framework.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="存储产业链跟踪框架：从颗粒价格到模组厂利润" />
+  <meta property="og:url" content="https://www.moomlt.com/blog/semiconductor-memory-tracking-framework.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/blog.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/">moomlt<span>.</span></a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">关于</a>
+      <a href="/daily/">AI 每日观察</a>
+      <span class="spacer"></span>
+      <button class="theme-btn" id="theme-btn" title="切换主题">◐</button>
+    </nav>
+
+    <article class="article">
+      <a class="a-back" href="/blog/">← 全部文章</a>
+      <h1>存储产业链跟踪框架：从颗粒价格到模组厂利润</h1>
+      <div class="a-meta"><span class="cat">半导体</span><span>2026-10-12</span><span>#存储 #DRAM #NAND #产业链</span></div>
+      <hr class="sep" />
+
+      <p>存储的周期属性很强，但很多讨论停在「涨价了 / 跌价了」，没有落到具体公司的利润表上。原因是链条太长，中间隔着好几层传导。我把它拆成四个可以独立观察的环节。</p>
+
+      <h2>环节一：颗粒价格（周期的起点）</h2>
+      <p>关注的是<strong>合约价与现货价的方向是否一致</strong>。两者背离时，通常意味着渠道行为在干扰真实供需：</p>
+      <ul>
+        <li>现货先动、合约滞后 → 渠道提前博弈，未必是终端需求变化</li>
+        <li>合约先动、现货跟随 → 原厂议价能力占优，价格更扎实</li>
+      </ul>
+      <p>只有方向一致并且持续两到三个季度，才构成一轮可辨认的周期。</p>
+
+      <h2>环节二：原厂产能与资本开支</h2>
+      <p>存储的价格弹性来自供给端的节奏，而供给取决于原厂的<strong>资本开支与制程切换</strong>。需要跟踪的：</p>
+      <ol>
+        <li>原厂是否把产能从一种产品切向另一种（如标准型 DRAM 转向 HBM 或服务器用产品）</li>
+        <li>先进制程的良率爬坡进度</li>
+        <li>减产或扩产的口径是「月产能」还是「投片量」——这两个数经常被混用</li>
+      </ol>
+      <p>第 3 点尤其容易出错：减产公告说的是投片量，而市场讨论的是产出量，中间还隔着一段生产周期，时间上对不齐就会得出错误结论。</p>
+
+      <h2>环节三：模组厂与封测的库存与毛利</h2>
+      <p>这是利润真正分化的一层。同一个涨价周期里，模组厂的业绩弹性取决于三件事：</p>
+      <ul>
+        <li><strong>低价库存的厚度</strong>：周期上行初期，手里有低价库存的厂商毛利改善最快</li>
+        <li><strong>采购与销售的定价周期是否匹配</strong>：采购按季度定价、销售按月度定价，就会有一段「剪刀差」</li>
+        <li><strong>产品结构</strong>：消费级、企业级、车规的定价能力完全不同</li>
+      </ul>
+      <p>所以看到颗粒涨价就直接推模组厂利润改善，是典型的跳跃推理。<strong>库存结构才是中间那个决定性的变量</strong>，而它通常只能从财报的存货科目与业绩说明会里挖。</p>
+
+      <h2>环节四：下游需求的真实强度</h2>
+      <p>最容易被叙事带偏的一环。判断需求我倾向看这些交叉验证：</p>
+      <table>
+        <thead><tr><th>观察项</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>服务器与数据中心资本开支指引</td><td>反映企业级需求的持续性</td></tr>
+          <tr><td>消费电子出货指引</td><td>反映消费级需求的边际变化</td></tr>
+          <tr><td>AI 服务器对高带宽产品的挤占</td><td>决定标准型产品供给是否被动收缩</td></tr>
+          <tr><td>渠道库存周转天数</td><td>区分真实出货与渠道囤货</td></tr>
+        </tbody>
+      </table>
+      <p>其中「AI 相关产品挤占标准型产能」是这一轮最需要单独跟踪的变量：它让标准型产品在没有终端需求爆发的情况下也能出现供给收缩，从而产生价格弹性。<strong>这类由供给端结构变化驱动的涨价，持续性和终端需求驱动的涨价完全不是一回事</strong>，对下游厂商的成本压力也完全不同。</p>
+
+      <h2>把四段连起来</h2>
+      <p>一个可用的跟踪顺序是：</p>
+      <pre><code>颗粒价格方向 → 原厂产能流向 → 模组库存结构 → 下游需求验证</code></pre>
+      <p>四个环节中，任何一个环节的数据缺失，我都会在结论里明确写「该环节未验证」，而不是用相邻环节的数据去推断它。产业链研究里最贵的错误，通常不是判断错方向，而是<strong>把一个没验证的环节当成了已验证的前提</strong>。</p>
+      <p>后续我会把每一环具体的数据源和更新频率整理成一张表。</p>
+    </article>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 moomlt.com · 投资研究笔记</span>
+        <span><a href="/">首页</a> · <a href="/blog/">文章</a> · <a href="/daily/">数据门户</a></span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("theme-btn").onclick = function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", cur);
+      localStorage.setItem("theme", cur);
+    };
+  </script>
+</body>
+</html>

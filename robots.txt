@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tingmo.github.io/ai-daily/sitemap.xml
+Sitemap: https://www.moomlt.com/sitemap.xml

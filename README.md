@@ -2,7 +2,7 @@
 
 一个部署在 GitHub Pages 上的专业级 AI 资讯与资金流向研究站，每日 09:00 自动更新。
 
-**线上地址：** https://tingmo.github.io/ai-daily/
+**线上地址：** https://www.moomlt.com/
 
 ## 栏目结构
 
@@ -78,6 +78,8 @@ DNS 解析（阿里云云解析 / hichina）需包含以下记录：
 | `@` | A | `185.199.111.153` | 同上 |
 
 GitHub 侧配置：仓库 → Settings → Pages → Custom domain 填 `www.moomlt.com` → Save → 待 DNS check 通过后勾选 **Enforce HTTPS**。
+
+> ⚠️ **HTTPS 证书签发有延迟**：域名解析生效后，GitHub 需要向 Let's Encrypt 申请为 `www.moomlt.com` 签发的证书，通常 15 分钟~几小时，最长 24 小时。证书未签发前，访问 `https://www.moomlt.com` 会因仍使用 GitHub 的 `*.github.io` 通配证书而报「**您的连接不是私密连接**」（NET::ERR_CERT_COMMON_NAME_INVALID），这是正常的中间状态。期间可先用 `http://www.moomlt.com` 访问。若超过 1 小时仍无证书，在 Pages 设置里把 Custom domain 清空 → Save → 重新填入 → Save，可强制重新触发签发。
 
 ## 首次部署（已完成，备查）
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>moomlt · 投资研究笔记</title>
+    <link>https://www.moomlt.com/blog/</link>
+    <description>半导体存储与 AI 板块的投资研究笔记</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 17 Oct 2026 00:00:00 +0800</lastBuildDate>
+    <item>
+      <title>存储周期观察清单：从价格信号到利润确认</title>
+      <link>https://www.moomlt.com/blog/memory-cycle-checklist.html</link>
+      <guid isPermaLink="true">https://www.moomlt.com/blog/memory-cycle-checklist.html</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 +0800</pubDate>
+      <description>把存储周期的判断拆成价格、库存、产能、利润四层信号，每一层都给出可独立验证的观察项。</description>
+    </item>
+    <item>
+      <title>我的 AI 投研工作流：从信息过载到结构化日报</title>
+      <link>https://www.moomlt.com/blog/ai-research-workflow.html</link>
+      <guid isPermaLink="true">https://www.moomlt.com/blog/ai-research-workflow.html</guid>
+      <pubDate>Fri, 16 Oct 2026 00:00:00 +0800</pubDate>
+      <description>把每天的研究动作拆成「采集 — 校验 — 结构化 — 沉淀」四段，用固定口径替代随机刷新闻。</description>
+    </item>
+    <item>
+      <title>存储产业链跟踪框架：从颗粒价格到模组厂利润</title>
+      <link>https://www.moomlt.com/blog/semiconductor-memory-tracking-framework.html</link>
+      <guid isPermaLink="true">https://www.moomlt.com/blog/semiconductor-memory-tracking-framework.html</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 +0800</pubDate>
+      <description>把存储跟踪链条拆成颗粒价格、原厂产能、模组库存、下游需求四个可以独立观察的环节。</description>
+    </item>
+    <item>
+      <title>为什么我把 AI 舆情指数做成五维打分</title>
+      <link>https://www.moomlt.com/blog/ai-sentiment-index-design.html</link>
+      <guid isPermaLink="true">https://www.moomlt.com/blog/ai-sentiment-index-design.html</guid>
+      <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
+      <description>把舆情拆成五个可以分别观察、分别出错的维度，再合成一个总分。</description>
+    </item>
+  </channel>
+</rss>

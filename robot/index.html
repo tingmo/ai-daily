@@ -3,257 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A股行情与机器人板块收盘简报 · 2026-10-29</title>
+<title>A股行情与机器人板块收盘简报 · 2026-10-30</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; background:#f5f6f8; color:#1f2430; line-height:1.7; }
-  .wrap { max-width:1080px; margin:0 auto; padding:24px 20px 40px; }
-  .header { background:linear-gradient(135deg,#1c3d6e,#2b5aa0); color:#fff; border-radius:12px; padding:28px 32px; margin-bottom:20px; }
-  .header h1 { font-size:26px; letter-spacing:1px; }
-  .header .sub { margin-top:8px; font-size:14px; opacity:.85; }
-  .header .tagline { display:inline-block; margin-top:12px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.35); border-radius:20px; padding:3px 14px; font-size:13px; }
-  .card { background:#fff; border-radius:12px; box-shadow:0 1px 4px rgba(20,40,80,.08); padding:24px 28px; margin-bottom:20px; }
-  h2 { font-size:19px; color:#1c3d6e; border-left:5px solid #2b5aa0; padding-left:12px; margin-bottom:14px; }
-  h3 { font-size:16px; color:#333; margin:14px 0 8px; }
-  .tlgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:14px; }
-  .kpi { background:#f8f9fb; border:1px solid #e5e9f0; border-radius:10px; padding:14px 16px; text-align:center; }
-  .kpi .v { font-size:22px; font-weight:700; }
-  .kpi .l { font-size:12px; color:#667; margin-top:4px; }
-  .up { color:#d63031; } .down { color:#0a8f3c; } .flat { color:#888; }
-  .concl { background:#f2f6fc; border-left:4px solid #2b5aa0; border-radius:6px; padding:12px 16px; font-size:14px; margin-top:10px; }
-  .chart { width:100%; height:340px; }
-  .chart2 { width:100%; height:360px; }
-  .src { font-size:12px; color:#8a93a3; margin-top:8px; }
-  table { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:10px; }
-  th { background:#eef2f8; color:#1c3d6e; padding:9px 8px; border:1px solid #dde4ee; font-weight:600; white-space:nowrap; }
-  td { padding:8px; border:1px solid #e8edf4; text-align:center; }
+  body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; background:#f5f6f8; color:#222; line-height:1.7; }
+  .wrap { max-width:1100px; margin:0 auto; background:#fff; padding:28px 36px 32px; }
+  h1 { font-size:26px; color:#1a2b4a; border-bottom:3px solid #1a2b4a; padding-bottom:10px; margin-bottom:6px; }
+  .sub { color:#888; font-size:13px; margin-bottom:18px; }
+  h2 { font-size:19px; color:#1a2b4a; margin:26px 0 12px; padding-left:10px; border-left:5px solid #c0392b; }
+  h3 { font-size:16px; color:#33415e; margin:16px 0 8px; }
+  .tldr { background:#fdf6ec; border:1px solid #e8d5b5; border-radius:8px; padding:14px 18px; margin:14px 0; font-size:14.5px; }
+  .tldr b { color:#c0392b; }
+  table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:13.5px; }
+  th,td { border:1px solid #dde2ea; padding:7px 10px; text-align:center; }
+  th { background:#eef2f7; color:#1a2b4a; font-weight:600; }
   td.left { text-align:left; }
-  .note { background:#fffaf0; border:1px solid #f0e0b0; border-radius:6px; padding:10px 14px; font-size:13px; margin-top:12px; color:#7a5c14; }
-  ul.judge { padding-left:20px; font-size:14px; }
-  ul.judge li { margin:7px 0; }
-  .cat { font-size:14px; margin:10px 0 6px; padding:8px 12px; background:#f8f9fb; border-radius:8px; border:1px solid #e5e9f0; }
-  .cat b { color:#1c3d6e; }
-  .disclaimer { background:#f2f3f5; border-radius:10px; padding:16px 20px; font-size:13px; color:#667; }
-  .disclaimer b { color:#444; }
-  .footer { text-align:center; font-size:12px; color:#9aa3b0; margin-top:24px; }
+  .up { color:#d93025; font-weight:600; }
+  .down { color:#0a8f4e; font-weight:600; }
+  .chart { width:100%; height:340px; margin:8px 0 2px; }
+  .cap { font-size:12px; color:#999; margin:2px 0 12px; }
+  .note { font-size:12.5px; color:#666; background:#f6f8fa; border-left:3px solid #aab7c9; padding:8px 12px; margin:8px 0; }
+  .cardrow { display:flex; gap:12px; flex-wrap:wrap; margin:12px 0; }
+  .kcard { flex:1; min-width:170px; background:#f8fafc; border:1px solid #e3e8ef; border-radius:8px; padding:12px 14px; text-align:center; }
+  .kcard .kv { font-size:22px; font-weight:700; margin:2px 0; }
+  .kcard .kl { font-size:12px; color:#888; }
+  .disclaimer { margin-top:30px; padding:14px 16px; background:#f2f2f2; border:1px dashed #bbb; border-radius:6px; font-size:12.5px; color:#555; }
+  .tag { display:inline-block; background:#eef2f7; color:#4a5b7c; font-size:11px; border-radius:4px; padding:1px 7px; margin-right:6px; }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <h1>A股行情与机器人板块收盘简报</h1>
+  <div class="sub">2026年10月30日（周五）收盘 · 10月最后一个交易日 · 数据来源：westock-data 行情接口、聚源/neodata、腾讯财经、每经、同花顺等（时点见各数据块标注）</div>
 
-  <div class="header">
-    <h1>A股行情 + 机器人板块 · 收盘简报</h1>
-    <div class="sub">2026年10月29日（周四）收盘 · 红涨绿跌 · 数据均标注来源与时点</div>
-    <div class="tagline">每日收盘更新 · https://www.moomlt.com/robot/</div>
+  <div class="tldr">
+    <b>核心结论：</b>10月收官日放量普跌——两市成交 <b>1.674万亿元（放量约1179亿）</b>，上涨仅893家 vs 下跌4602家，跌停93家远超涨停49家，沪指失守3600点、月跌6.33%。人形机器人概念 <b>-4.20%</b>、尾盘跳水，主力单日净流出 <b>93.27亿元</b>（5日累计流出253.79亿），导火索为隔夜Alphabet财报暴雷引发全球AI交易降温 + 宇树三季报"增收不增利"余波。个股剧烈分化：埃斯顿（002747）逆势 <span class="up">+2.96%</span> 获超大单净买入5.30亿（全市场第4），绿的谐波（688017）<span class="down">-9.61%</span> 领跌。H30590 PE-TTM 回落至48倍附近、5年分位43%，估值处历史中位而非泡沫区。产业催化仍在累积（特斯拉Optimus首批量产级下线、国标落地、国网68亿订单），短期属"情绪杀+筹码松动"，磨底期关注量能能否稳住1.6万亿与财报兑现度。
   </div>
 
-  <div class="card">
-    <h2>今日结论（TL;DR）</h2>
-    <div class="tlgrid">
-      <div class="kpi"><div class="v down">-0.82%</div><div class="l">上证指数 3651.43</div></div>
-      <div class="kpi"><div class="v down">-4.45%</div><div class="l">创业板指 2517.59</div></div>
-      <div class="kpi"><div class="v down">-4.06%</div><div class="l">人形机器人板块</div></div>
-      <div class="kpi"><div class="v down">1.56万亿</div><div class="l">两市成交 缩量720亿</div></div>
-    </div>
-    <div class="concl">
-      <b>市场：</b>高开低走、缩量普跌。权重防御（煤炭+2.21%、银行+1.97%）掩盖个股普跌——上涨仅781家、下跌4728家，跌停（52家）反超涨停（39家），情绪处于低位。<br>
-      <b>机器人：</b>前期快速反弹后的高位集中兑现。人形机器人板块 -4.06%、主力净流出154亿；四只核心标的全线收跌（-3.76% ~ -5.77%），量比均&lt;1，属缩量调整而非放量出逃；宇树三季报"增收不增利"（Q3单季净利同比下滑）压制情绪。<br>
-      <b>估值：</b>中证机器人（H30590）PE-TTM 49.66倍（10-28官方），近5年分位49.4%，绝对不低、相对中性。<br>
-      <b>催化：</b>特斯拉Optimus Gen 3已进入早期量产（弗里蒙特产线设计年产能100万台），商务部九部门需求侧政策+首批国标+10/29美方暂缓对机器人加征关税，产业叙事仍向上，但对外收入为零、节奏不确定性未同步下降。
-    </div>
+  <h2>一、大盘概览（2026-10-30 收盘）</h2>
+  <table>
+    <tr><th>指数</th><th>收盘</th><th>涨跌幅</th><th>10月累计</th><th>备注</th></tr>
+    <tr><td>上证指数 000001.SH</td><td>3599.02</td><td class="down">-1.44%</td><td class="down">-6.33%</td><td class="left">失守3600点整数关，收盘逼近全天最低</td></tr>
+    <tr><td>深证成指 399001.SZ</td><td>10833.78</td><td class="down">-2.73%</td><td class="down">-15.94%</td><td class="left">收于当日最低点，尾盘杀跌</td></tr>
+    <tr><td>创业板指 399006.SZ</td><td>2413.63</td><td class="down">-4.13%</td><td class="down">-23.02%</td><td class="left">创年内新低，较6月高点回撤超44%</td></tr>
+    <tr><td>科创50 000688.SH</td><td>1160.84</td><td class="down">-5.48%</td><td class="down">-24.13%</td><td class="left">创年内新低，本月跌幅最深</td></tr>
+  </table>
+  <div class="cap">来源：westock-data 行情接口、腾讯财经收评（2026-10-30 收盘）；月度涨跌幅据深圳商报/Wind（2026-10-30）</div>
+
+  <div class="cardrow">
+    <div class="kcard"><div class="kl">两市成交额</div><div class="kv">16,744.63亿</div><div class="kl">较前日放量 +1,179亿</div></div>
+    <div class="kcard"><div class="kl">上涨 / 下跌 / 平盘</div><div class="kv down">893 / 4602 / 82</div><div class="kl">上涨占比仅16%</div></div>
+    <div class="kcard"><div class="kl">涨停 / 跌停</div><div class="kv">49 / 93</div><div class="kl">跌停多于涨停，情绪偏弱</div></div>
+    <div class="kcard"><div class="kl">融资余额（10-29）</div><div class="kv">23,491.5亿</div><div class="kl">环比 -1.10%</div></div>
+  </div>
+  <div class="cap">来源：neodata 市场宽度统计（2026-10-30 收盘）；两融为 neodata 2026-10-29 数据。跌停家数另有媒体口径86家（是否含ST/北交所差异）</div>
+
+  <div id="c1" class="chart"></div>
+  <div class="cap">图1：四大指数当日涨跌幅（%，2026-10-30收盘，westock-data）</div>
+
+  <div id="c2" class="chart"></div>
+  <div class="cap">图2：市场广度与涨跌幅分布（家，2026-10-30，neodata）</div>
+
+  <div class="note"><b>盘面结构：</b>极端风格切换——白酒、CRO/CMO、航运港口、食品饮料、银行逆势走强（建行、工行、中行创历史新高）；证券IT、短剧、CPO、影视院线、通信领跌，算力硬件（CPO/PCB/存储）集体重挫（新易盛、胜宏科技跌超10%）。资金面：前日融资余额23,491.53亿元环比-1.10%，低于20日均值，杠杆资金做多意愿一般。（来源：腾讯财经收评、澎湃新闻、neodata，2026-10-30）</div>
+
+  <h2>二、机器人 / 人形机器人板块当日表现</h2>
+  <table>
+    <tr><th>板块/指数</th><th>收盘</th><th>涨跌幅</th><th>成交额</th><th>主力资金</th><th>5日主力</th></tr>
+    <tr><td>人形机器人概念（02GN2238.PT，468只）</td><td>1501.52</td><td class="down">-4.20%</td><td>约2533亿</td><td class="down">-93.27亿</td><td class="down">-253.79亿</td></tr>
+    <tr><td>中证机器人指数 H30590.CS</td><td>1547.99</td><td class="down">-3.89%</td><td>振幅5.35%</td><td>—</td><td>—</td></tr>
+  </table>
+  <div class="cap">来源：聚源/neodata 板块行情与资金流（2026-10-30 收盘）、neodata 指数行情（H30590，2026-10-30）。板块日内节奏：早盘一度领涨 → 午后翻绿 → 尾盘跳水收于全天最低</div>
+
+  <div class="note"><b>下跌归因（两条主线）：</b>① 外部——隔夜Alphabet Q3营收1275.8亿美元（+25%）不及预期、EPS 2.12美元显著低于预期（2.99-3.02），自由现金流骤降至-90.7亿美元，谷歌-A暴跌12.64%，全球AI交易降温，港股机器人（禾赛-W -8.13%、越疆 -8.09%）同步下行；② 内部——宇树科技10-28披露三季报"增收不增利"（Q3营收6.65亿+69.93%，归母净利1.13亿同比-17.37%），叠加前期涨幅过大后的筹码松动。（来源：同花顺财经 2026-10-30、蓝鲸科技/腾讯财经 2026-10-29）</div>
+
+  <h3>核心标的当日行情（2026-10-30 收盘，westock-data）</h3>
+  <table>
+    <tr><th>标的</th><th>收盘价(元)</th><th>涨跌幅</th><th>换手率</th><th>量比</th><th>成交额(亿)</th><th>总市值(亿)</th><th>PE-TTM</th><th>年内涨幅</th></tr>
+    <tr><td>宇树科技-W 688836.SH</td><td>647.05</td><td class="down">-2.32%</td><td>19.94%</td><td>0.73</td><td>39.88</td><td>2617.09</td><td>466.88×</td><td class="up">+329.08%</td></tr>
+    <tr><td>绿的谐波 688017.SH</td><td>254.00</td><td class="down">-9.61%</td><td>5.60%</td><td>0.87</td><td>28.18</td><td>465.66</td><td>330.11×</td><td class="up">+32.37%</td></tr>
+    <tr><td>雷赛智能 002979.SZ</td><td>50.00</td><td class="down">-8.24%</td><td>9.67%</td><td>0.79</td><td>11.41</td><td>158.02</td><td>43.36×</td><td class="up">+19.56%</td></tr>
+    <tr><td>埃斯顿 002747.SZ</td><td>29.24</td><td class="up">+2.96%</td><td>13.22%</td><td>1.10</td><td>31.18</td><td>283.24</td><td>136.47×</td><td class="up">+20.63%</td></tr>
+  </table>
+  <div class="cap">来源：westock-data 行情接口（2026-10-30 收盘）。PE/市值单位：倍、亿元人民币</div>
+
+  <div id="c3" class="chart"></div>
+  <div class="cap">图3：核心标的当日涨跌幅（%，2026-10-30收盘，westock-data）</div>
+
+  <div id="c4" class="chart"></div>
+  <div class="cap">图4：核心标的当日主力资金净流入（亿元，2026-10-30，westock-data 资金流接口；超大单+大单口径）</div>
+
+  <div class="note"><b>资金结构分化是当日最大看点：</b>三只标的遭主力减持（宇树-1.30亿、绿的-2.19亿、雷赛-0.98亿），唯埃斯顿获 <b>+5.30亿</b> 净流入（超大单+6.02亿，主力净流入额全市场第4、占流通市值比2.31%为四者最高）——但埃斯顿5日/20日主力仍为净流出（-0.12亿/-25.35亿），属下跌途中的单日强力回补而非趋势反转。绿的谐波、雷赛智能呈"主力出、中小单接"的接盘结构，需警惕。宇树振幅10.19%、换手19.94%居科创板第一，筹码交换剧烈。（来源：westock-data 资金流接口，2026-10-30）</div>
+
+  <h2>三、中证机器人指数 H30590 估值</h2>
+  <div class="cardrow">
+    <div class="kcard"><div class="kl">PE-TTM（10-29官方）</div><div class="kv">48.11×</div><div class="kl">10-30按价格比例推算 ≈46.2×</div></div>
+    <div class="kcard"><div class="kl">PE 5年分位（10-29）</div><div class="kv">42.9%</div><div class="kl">近3年约40% / 近10年约45%</div></div>
+    <div class="kcard"><div class="kl">PB-LF（10-29）</div><div class="kv">3.87×</div><div class="kl">PB 5年分位39.3%（10-28）</div></div>
+    <div class="kcard"><div class="kl">预期PE（10-29）</div><div class="kv">29.38×</div><div class="kl">隐含高增长预期，64只成分股17只亏损</div></div>
+  </div>
+  <div class="cap">来源：neodata 指数估值（2026-10-29，官方估值滞后一个交易日）；10-30推算值=按当日指数价格比例折算，仅供参考。H30590 当日收1547.99、-3.89%（neodata，2026-10-30）</div>
+
+  <div id="c5" class="chart" style="height:380px;"></div>
+  <div class="cap">图5：H30590 PE-TTM 及近5年分位走势（10-16~10-29 官方值，10-30 为推算值；neodata）</div>
+
+  <div class="note"><b>口径提示：</b>部分渠道宣传"PE处近1年4.13%分位、历史低位"，那是<b>近1年</b>分位口径；按3/5/10年长周期看，估值处<b>历史中位附近</b>（5年分位42.9%），当前是"从7月51.8×高位回到中枢"，并非深度低估。前瞻PE 29.4×隐含较高盈利增速预期，若量产订单不及预期，估值消化压力不小。（来源：neodata 2026-10-29；口径对照：网易/每经转引国泰海通 2026-10-30）</div>
+
+  <h2>四、催化与研判</h2>
+  <h3>产业催化（多空并存）</h3>
+  <table>
+    <tr><th style="width:110px;">方向</th><th>要点</th><th style="width:190px;">来源与时点</th></tr>
+    <tr><td><span class="tag">量产</span>特斯拉Optimus</td><td class="left">Q3财报（10-22）首次确认：弗里蒙特产线进入"初期爬坡（Early Ramp）"，首批达量产质量标准的机器人下线；产线设计年产能100万台；马斯克称周产2万台还需约一年，对外交付锚定2027年底左右（用词为"有望"）。警惕历史兑现率：2025年计划5000台实际仅数百台（缺口&gt;90%）。另：马斯克称1-2个月内发布Optimus演示视频</td><td class="left">特斯拉2026Q3财报（10-22）；中国电子报/今日头条（10-22）；金羊网/界面（10-22）</td></tr>
+    <tr><td><span class="tag">政策</span>国标+规划</td><td class="left">市场监管总局批准首批6项人形机器人国标（2027-04-01实施，覆盖感知/决策/控制/作业）；机器人写入"十五五"规划；工信部+国资委实训专项行动要求年底形成万台级落地能力；上海目标2028年8000台进工厂</td><td class="left">市场监管总局（2026-10）；工信部（2026-06）；上海经信委</td></tr>
+    <tr><td><span class="tag">订单</span>真实订单</td><td class="left">国家电网68亿元采购8500台（500台人形+3000台双臂+5000台四足）；长盈精密1-8月交付人形精密零组件超110万件；舍弗勒在手订单增至4亿欧元；雷赛智能无框力矩电机在手订单超100万台；大摩将2026年中国出货预测由2.8万台上调至5万台</td><td class="left">齐鲁壹点/国网公告（2026-10）；同花顺（2026-10-28）；摩根士丹利（2026-10）</td></tr>
+    <tr><td><span class="tag">利空</span>压制因素</td><td class="left">隔夜Alphabet财报暴雷引发AI交易降温；宇树Q3净利同比-17.37%（算力与大模型研发投入增加）；订单"含金量"存疑（意向/框架协议常被包装为落地）；2026上半年全球出货中真正进工厂的不足两成</td><td class="left">同花顺（2026-10-30）；蓝鲸科技（2026-10-29）；弗若斯特沙利文（2026）</td></tr>
+  </table>
+
+  <h3>简短判断</h3>
+  <div class="note">
+    <b>短期（T+1~T+5）：</b>放量长阴+跌停潮+尾盘杀跌，情绪冰点，磨底阶段不宜抢反弹；观察两点——成交能否稳住1.6万亿上方、机器人板块能否缩量止跌（今日板块量比1.01尚未缩到位）。埃斯顿获超大单逆势回补是结构亮点，但单日回补不构成反转信号。<br>
+    <b>中期（1-3个月）：</b>11-12月为三季报验证期+科技股估值修复窗口（多家券商观点），产业催化（特斯拉视频演示、Optimus爬坡数据、国网订单后续、国标实施预期）仍在累积；板块主力5日/10日大幅净流出表明筹码仍在出清，右侧信号需等资金回流。<br>
+    <b>风险：</b>Alphabet财报引发的AI交易降温若持续，高PE标的（宇树466×、绿的330×）对业绩兑现极度敏感；"含机量"高的题材股需甄别订单真实性。当前H30590估值处历史中位，"跌的是情绪与筹码，不是估值泡沫"，但中位也不等于便宜。
   </div>
 
-  <div class="card">
-    <h2>一、大盘：高开低走，缩量普跌</h2>
-    <table>
-      <tr><th>指数</th><th>收盘</th><th>涨跌幅</th><th>涨跌点</th><th>成交额</th><th>年初至今</th></tr>
-      <tr><td>上证指数</td><td>3651.43</td><td class="down">-0.82%</td><td class="down">-30.04</td><td>7156亿</td><td class="down">-8.00%</td></tr>
-      <tr><td>深证成指</td><td>11138.20</td><td class="down">-2.92%</td><td class="down">-334.98</td><td>8409亿</td><td class="down">-17.65%</td></tr>
-      <tr><td>创业板指</td><td>2517.59</td><td class="down">-4.45%</td><td class="down">-117.17</td><td>4194亿</td><td class="down">-21.40%</td></tr>
-      <tr><td>科创50</td><td>1228.09</td><td class="down">-4.27%</td><td class="down">-54.84</td><td>711亿</td><td class="down">-8.64%</td></tr>
-    </table>
-    <div class="src">来源：westock-data 行情（sh000001 / sz399001 / sz399006 / sh000688），2026-10-29 收盘</div>
-    <div id="c1" class="chart" style="margin-top:12px;"></div>
-    <h3>市场广度：上涨占比仅14%，跌停数反超涨停</h3>
-    <div style="font-size:14px;">上涨 <b class="up">781家</b>（涨停39）· 平盘68家 · 下跌 <b class="down">4728家</b>（跌停52）· 两市成交 <b>15,565亿元</b>，较前日缩量719.71亿。行业端煤炭+2.21%、银行+1.97%、食品饮料+1.17%领涨；通信-7.56%、电子-5.47%领跌，风格极度分化——权重护盘掩盖了个股全面杀跌。（来源：neodata 市场宽度统计 + 腾讯新闻引Wind复盘，2026-10-29）</div>
-    <div id="c2" class="chart" style="margin-top:10px;"></div>
-    <div class="src">图：2026-10-29 全市场涨跌幅分布（家数），来源：neodata，2026-10-29</div>
-  </div>
-
-  <div class="card">
-    <h2>二、机器人板块：高位集中兑现，主力大幅净流出</h2>
-    <div class="cat">🤖 <b>人形机器人</b>（02GN2238，462只成分）：收1567.43点，<b class="down">-4.06%</b>，成交2494.53亿，<b class="down">主力净流出154.02亿</b>（近5日-88.67亿、近10日-45.43亿）</div>
-    <div class="cat">⚙️ <b>机器人概念</b>（02003640，1226只成分）：收5587.33点，<b class="down">-3.47%</b>，成交4562.49亿，<b class="down">主力净流出261.97亿</b>（近5日-251.37亿、近10日-350.18亿）</div>
-    <div class="cat">🏭 <b>申万口径</b>：自动化设备 -5.01%，机械设备一级 -3.23%，均显著弱于大盘；板块PE-TTM约37.07倍、PB 3.02倍</div>
-    <div class="src">来源：westock-data / neodata 板块行情与资金流向，2026-10-29 收盘；板块口径不同（462 vs 1226只），涨跌幅不可直接互比</div>
-    <div id="c3" class="chart2" style="margin-top:12px;"></div>
-    <div class="src">图：机器人相关板块当日涨跌幅与主力净流出（左轴涨跌幅%，右轴主力净流入亿元），来源：neodata/westock-data，2026-10-29</div>
-
-    <h3>核心标的全线收跌：缩量调整而非放量出逃</h3>
-    <table>
-      <tr><th>标的</th><th>收盘价(元)</th><th>涨跌幅</th><th>成交额(亿)</th><th>换手率</th><th>量比</th><th>PE(TTM)</th><th>当日主力净流入</th><th>近5日主力</th></tr>
-      <tr><td>宇树科技-W (688836.SH)</td><td>662.39</td><td class="down">-4.82%</td><td>40.30</td><td>20.01%</td><td>0.74</td><td>477.95</td><td class="down">-2.46亿</td><td class="up">+6.65亿</td></tr>
-      <tr><td>绿的谐波 (688017.SH)</td><td>281.00</td><td class="down">-3.76%</td><td>27.92</td><td>5.26%</td><td>0.84</td><td>365.21</td><td class="down">-0.54亿</td><td class="up">+4.52亿</td></tr>
-      <tr><td>雷赛智能 (002979.SZ)</td><td>54.49</td><td class="down">-4.45%</td><td>12.20</td><td>9.85%</td><td>0.89</td><td>47.26</td><td class="down">-0.21亿</td><td class="up">+3.08亿</td></tr>
-      <tr><td>埃斯顿 (002747.SZ)</td><td>28.40</td><td class="down">-5.77%</td><td>19.73</td><td>8.67%</td><td>0.72</td><td>137.82</td><td class="down">-1.70亿</td><td class="up">+2.19亿</td></tr>
-    </table>
-    <div class="src">来源：westock-data 行情与资金流向（sh688836/sh688017/sz002979/sz002747），2026-10-29 收盘</div>
-    <div id="c4" class="chart" style="margin-top:12px;"></div>
-    <div class="src">图：核心标的当日涨跌幅（%）与主力净流入（亿元），来源：westock-data，2026-10-29</div>
-    <div class="note"><b>宇树三季报点评：</b>10-28晚披露上市后首份三季报——前三季营收18.17亿元（+55.71%）、归母净利3.87亿元（+270.54%）；但<b>Q3单季归母净利1.13亿元同比下滑、环比降近五成</b>（股份支付+研发投入拖累），"增收不增利"压制次日情绪。此前7个交易日累计反弹超65%、年初至今+339%，当日-4.82%属高位获利兑现，主力-2.46亿几乎全部来自超大单、中单承接+2.50亿。（来源：westock-data + 公司三季报经媒体转引，需核实公告原文）</div>
-  </div>
-
-  <div class="card">
-    <h2>三、中证机器人指数（H30590）估值</h2>
-    <div class="tlgrid">
-      <div class="kpi"><div class="v down">-3.27%</div><div class="l">H30590 收1610.68（10-29）</div></div>
-      <div class="kpi"><div class="v">49.66×</div><div class="l">PE-TTM（10-28官方）</div></div>
-      <div class="kpi"><div class="v">49.4%</div><div class="l">PE近5年分位（10-28）</div></div>
-      <div class="kpi"><div class="v">4.00×</div><div class="l">PB（近5年分位47.8%）</div></div>
-    </div>
-    <div style="font-size:14px;">10-29指数收1610.68点（-3.27%），当日官方估值未发布；按跌幅线性推算 PE-TTM 约 <b>48.0倍</b>（<i>推算值，非官方</i>）。指数成分64只中17家亏损（占26.6%），负值不参与PE计算；预期PE 30.31倍、PEG 7.52——绝对估值已计入较多远期预期，5年分位中性（49.4%）、10年分位偏高（70.4%，PS口径参考）。<span style="color:#8a93a3;font-size:12px;">来源：neodata 统一估值查询（H30590.CS），2026-10-28；行情 westock-data 2026-10-29；近1年分位5.37%为不同窗口口径，不与5年分位混用。</span></div>
-    <div id="c5" class="chart2" style="margin-top:12px;"></div>
-    <div class="src">图：H30590 PE-TTM 与近5年PE分位（近10个交易日），来源：neodata，2026-10-15 ~ 10-28 官方数据</div>
-  </div>
-
-  <div class="card">
-    <h2>四、催化与判断</h2>
-    <h3>产业催化（多方确认）</h3>
-    <ul class="judge">
-      <li><b>特斯拉 Optimus 量产实质推进</b>（Q3财报，10-21美东盘后）：Gen 3 在弗里蒙特工厂启动早期生产，官方首次称工艺"达到量产质量标准"；产线由 Model S/X 线改造（46天拆除重建），设计年产能100万台；周产2万台目标需一年以上；<b>对外交付2027年底</b>，先期1-2万台留内部采集数据；AI5芯片2027年4月集成。瓶颈：灵巧手（22自由度）耐久性验证；Q3净利同比-43%，机器人尚无外部收入。（来源：特斯拉Q3股东信/财报电话会，经InstaDataNews、腾讯新闻等多家转引，需核实原文）</li>
-      <li><b>政策需求侧首次发力</b>：商务部等九部门《关于加快推进科技兴商的意见》（10-19）推动具身智能进商贸物流/家庭服务场景；首批六项人形机器人国标2027-04-01实施；工信部指引全年整机产量超10万台（上半年超4万台）。（来源：商务部/市场监管总局/工信部经每日经济新闻等转引，10月中下旬）</li>
-      <li><b>关税缓和</b>（10-29，彭博社）：特朗普签署公告暂缓对机器人、工业机械及零部件进口加征关税，转为180天谈判窗口——出口链短期利好。</li>
-      <li><b>订单与量产兑现</b>：智元创新日（10-29）披露上半年出货9700台、营收近20亿、全球份额超43%；新剑传动披露获特斯拉丝杠量产订单（10-12 IPO问询回复）；银轮股份具身智能热管理量产；上海推动8000台人形机器人进工厂；摩根士丹利将2026年中国出货预测由2.8万台上调至5万台。（来源：媒体/券商研报转引，需核实原文）</li>
-    </ul>
-    <h3>简短判断</h3>
-    <ul class="judge">
-      <li><b>当日定性</b>：前期暴涨（宇树7日+65%）后的高位兑现 + 大盘风险偏好回落共振，量比全面&lt;1说明是缩量调整而非恐慌出逃；但主力连续净流出（人形5日-88.67亿）显示筹码在向中小资金转移，短线修复需要量能或新催化确认。</li>
-      <li><b>中期逻辑未破坏</b>：主线正从"技术收敛"切向"量产与订单兑现"，瓶颈从"有没有大脑"下移到"数据与物理执行"——数据采集、传感器、丝杠/减速器等硬件环节商业兑现可能领先于整机放量；H30590估值5年分位中性，回调后配置性价比改善，但PEG 7.5与26.6%亏损成分股提醒估值对业绩兑现极为敏感。</li>
-      <li><b>后续验证点</b>：12月2日特斯拉股东大会、供应链排产数据、宇树/智元季度机器人收入首次兑现、美方180天关税谈判进展。反向声音：本轮反弹部分由"物理AI叙事接续算力叙事"驱动，若Q4订单数据不及预期，估值仍可能向5年分位30%以下回压。</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>数据来源汇总</h2>
-    <div style="font-size:13px;color:#667;">
-      行情/资金/估值：westock-data、neodata（2026-10-29 收盘；H30590官方估值截至2026-10-28，10-29为推算）；市场资讯：腾讯新闻/新浪财经/每日经济新闻/和讯网/同花顺（2026-10-29，非一手来源，需核实原文）；产业信息：特斯拉Q3股东信及电话会、智元创新日、商务部/工信部政策发布（均为媒体或研报转引）。红涨绿跌；所有板块口径已在正文标注。
-    </div>
-  </div>
+  <h2>五、数据来源汇总</h2>
+  <table>
+    <tr><th>数据块</th><th>来源</th><th>时点</th></tr>
+    <tr><td class="left">指数行情、市场广度、成交额</td><td class="left">westock-data 行情接口、neodata 市场宽度、腾讯财经/澎湃新闻收评</td><td>2026-10-30 收盘</td></tr>
+    <tr><td class="left">机器人板块行情与主力资金</td><td class="left">聚源/neodata（02GN2238.PT）、westock-data 资金流接口</td><td>2026-10-30 收盘</td></tr>
+    <tr><td class="left">核心标的行情/资金/估值</td><td class="left">westock-data 行情与资金流接口</td><td>2026-10-30 收盘</td></tr>
+    <tr><td class="left">H30590 估值与分位</td><td class="left">neodata 指数估值（官方滞后一日）</td><td>2026-10-29（10-30为推算）</td></tr>
+    <tr><td class="left">催化与新闻</td><td class="left">特斯拉2026Q3财报、中国电子报、同花顺、每经/网易、齐鲁壹点等（非一手来源，需核实原文）</td><td>2026-10-22 ~ 10-30</td></tr>
+  </table>
 
   <div class="disclaimer">
     <b>免责声明</b>：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。
   </div>
-
-  <div class="footer">A股行情 + 机器人板块收盘简报 · 生成于 2026-10-29 · https://www.moomlt.com/robot/</div>
 </div>
 
 <script>
-// ===== c1 四大指数涨跌幅 =====
+// 红涨绿跌
+var UP = '#d93025', DOWN = '#0a8f4e';
+
+// 图1 四大指数涨跌幅
 echarts.init(document.getElementById('c1')).setOption({
-  tooltip:{trigger:'axis',formatter:function(p){var d=p[0];return d.name+'：'+d.value+'%';}},
-  grid:{left:60,right:40,top:30,bottom:40},
-  xAxis:{type:'category',data:['上证指数','深证成指','创业板指','科创50']},
-  yAxis:{type:'value',name:'涨跌幅(%)',axisLabel:{formatter:'{value}%'}},
-  series:[{type:'bar',barWidth:'45%',data:[
-    {value:-0.82,itemStyle:{color:'#0a8f3c'}},
-    {value:-2.92,itemStyle:{color:'#0a8f3c'}},
-    {value:-4.45,itemStyle:{color:'#0a8f3c'}},
-    {value:-4.27,itemStyle:{color:'#0a8f3c'}}],
-    label:{show:true,position:'bottom',color:'#0a8f3c',formatter:'{c}%'}}]
+  tooltip: { trigger: 'axis', formatter: '{b}<br/>涨跌幅: {c}%' },
+  grid: { left: 60, right: 30, top: 40, bottom: 40 },
+  xAxis: { type: 'category', data: ['上证指数', '深证成指', '创业板指', '科创50'] },
+  yAxis: { type: 'value', name: '%', axisLabel: { formatter: '{value}%' } },
+  series: [{
+    type: 'bar', barWidth: '45%',
+    data: [
+      { value: -1.44, itemStyle: { color: DOWN } },
+      { value: -2.73, itemStyle: { color: DOWN } },
+      { value: -4.13, itemStyle: { color: DOWN } },
+      { value: -5.48, itemStyle: { color: DOWN } }
+    ],
+    label: { show: true, position: 'bottom', formatter: '{c}%', color: '#333' }
+  }]
 });
 
-// ===== c2 市场广度分布 =====
+// 图2 市场广度与涨跌幅分布
 echarts.init(document.getElementById('c2')).setOption({
-  tooltip:{trigger:'axis',formatter:function(p){var d=p[0];return d.name+'：'+d.value+'家';}},
-  grid:{left:60,right:30,top:40,bottom:80},
-  xAxis:{type:'category',data:['涨停','+7%以上','+5~7%','+2~5%','0~2%','平盘','-2~0%','-5~-2%','-7~-5%','-7%以下','跌停'],axisLabel:{rotate:40}},
-  yAxis:{type:'value',name:'家数'},
-  series:[{type:'bar',barWidth:'55%',
-    data:[
-      {value:39,itemStyle:{color:'#d63031'}},
-      {value:23,itemStyle:{color:'#e05c5c'}},
-      {value:42,itemStyle:{color:'#e05c5c'}},
-      {value:207,itemStyle:{color:'#ea8888'}},
-      {value:470,itemStyle:{color:'#f2b3b3'}},
-      {value:68,itemStyle:{color:'#9aa3b0'}},
-      {value:1351,itemStyle:{color:'#a9dcb8'}},
-      {value:2387,itemStyle:{color:'#7cc795'}},
-      {value:540,itemStyle:{color:'#4aab68'}},
-      {value:398,itemStyle:{color:'#2f9e44'}},
-      {value:52,itemStyle:{color:'#0a8f3c'}}],
-    label:{show:true,position:'top',fontSize:10,color:'#555'}}]
+  tooltip: { trigger: 'axis' },
+  legend: { data: ['家数'] },
+  grid: { left: 70, right: 30, top: 40, bottom: 70 },
+  xAxis: {
+    type: 'category',
+    data: ['涨停', '+7%~+5%', '+5%~+2%', '+2%~0', '平盘', '0~-2%', '-2%~-5%', '-5%~-7%', '-7%以下', '跌停'],
+    axisLabel: { rotate: 30, fontSize: 11 }
+  },
+  yAxis: { type: 'value', name: '家数' },
+  series: [{
+    name: '家数', type: 'bar', barWidth: '55%',
+    data: [
+      { value: 49, itemStyle: { color: UP } },
+      { value: 49, itemStyle: { color: UP } },
+      { value: 218, itemStyle: { color: UP } },
+      { value: 551, itemStyle: { color: UP } },
+      { value: 82, itemStyle: { color: '#999' } },
+      { value: 1037, itemStyle: { color: DOWN } },
+      { value: 2086, itemStyle: { color: DOWN } },
+      { value: 841, itemStyle: { color: DOWN } },
+      { value: 545, itemStyle: { color: DOWN } },
+      { value: 93, itemStyle: { color: DOWN } }
+    ],
+    label: { show: true, position: 'top', fontSize: 10, color: '#555' }
+  }]
 });
 
-// ===== c3 板块表现：涨跌幅 + 主力净流出 =====
+// 图3 核心标的涨跌幅
 echarts.init(document.getElementById('c3')).setOption({
-  tooltip:{trigger:'axis'},
-  legend:{data:['涨跌幅(%)','主力净流入(亿元)']},
-  grid:{left:60,right:70,top:50,bottom:40},
-  xAxis:{type:'category',data:['人形机器人','机器人概念','中证机器人','自动化设备','机械设备']},
-  yAxis:[
-    {type:'value',name:'涨跌幅(%)',axisLabel:{formatter:'{value}%'}},
-    {type:'value',name:'主力净流入(亿元)'}
-  ],
-  series:[
-    {name:'涨跌幅(%)',type:'bar',barWidth:'40%',data:[
-      {value:-4.06,itemStyle:{color:'#0a8f3c'}},
-      {value:-3.47,itemStyle:{color:'#0a8f3c'}},
-      {value:-3.27,itemStyle:{color:'#0a8f3c'}},
-      {value:-5.01,itemStyle:{color:'#0a8f3c'}},
-      {value:-3.23,itemStyle:{color:'#0a8f3c'}}],
-      label:{show:true,position:'bottom',color:'#0a8f3c',formatter:'{c}%'}},
-    {name:'主力净流入(亿元)',type:'bar',yAxisIndex:1,barWidth:'40%',data:[
-      {value:-154.02,itemStyle:{color:'#8fd3a5'}},
-      {value:-261.97,itemStyle:{color:'#8fd3a5'}},
-      {value:null,itemStyle:{color:'#c8e6cf'}},
-      {value:null,itemStyle:{color:'#c8e6cf'}},
-      {value:null,itemStyle:{color:'#c8e6cf'}}],
-      label:{show:true,position:'bottom',color:'#2f9e44',fontSize:10,formatter:function(p){return p.value===null?'':p.value;}}}
-  ]
+  tooltip: { trigger: 'axis', formatter: '{b}<br/>涨跌幅: {c}%' },
+  grid: { left: 60, right: 30, top: 30, bottom: 40 },
+  xAxis: { type: 'category', data: ['宇树科技-W', '绿的谐波', '雷赛智能', '埃斯顿'] },
+  yAxis: { type: 'value', name: '%', axisLabel: { formatter: '{value}%' } },
+  series: [{
+    type: 'bar', barWidth: '45%',
+    data: [
+      { value: -2.32, itemStyle: { color: DOWN } },
+      { value: -9.61, itemStyle: { color: DOWN } },
+      { value: -8.24, itemStyle: { color: DOWN } },
+      { value: 2.96, itemStyle: { color: UP } }
+    ],
+    label: { show: true, position: 'outside', formatter: '{c}%', color: '#333' }
+  }]
 });
 
-// ===== c4 核心标的涨跌幅 + 主力净流入 =====
+// 图4 主力资金净流入（亿元）
 echarts.init(document.getElementById('c4')).setOption({
-  tooltip:{trigger:'axis'},
-  legend:{data:['涨跌幅(%)','当日主力净流入(亿元)']},
-  grid:{left:60,right:60,top:50,bottom:60},
-  xAxis:{type:'category',data:['宇树科技','绿的谐波','雷赛智能','埃斯顿'],axisLabel:{interval:0}},
-  yAxis:[
-    {type:'value',name:'涨跌幅(%)',axisLabel:{formatter:'{value}%'}},
-    {type:'value',name:'主力净流入(亿元)'}
-  ],
-  series:[
-    {name:'涨跌幅(%)',type:'bar',barWidth:'35%',data:[
-      {value:-4.82,itemStyle:{color:'#0a8f3c'}},
-      {value:-3.76,itemStyle:{color:'#0a8f3c'}},
-      {value:-4.45,itemStyle:{color:'#0a8f3c'}},
-      {value:-5.77,itemStyle:{color:'#0a8f3c'}}],
-      label:{show:true,position:'bottom',color:'#0a8f3c',formatter:'{c}%'}},
-    {name:'当日主力净流入(亿元)',type:'bar',yAxisIndex:1,barWidth:'35%',data:[
-      {value:-2.46,itemStyle:{color:'#f2b3b3'}},
-      {value:-0.54,itemStyle:{color:'#f2b3b3'}},
-      {value:-0.21,itemStyle:{color:'#f2b3b3'}},
-      {value:-1.70,itemStyle:{color:'#f2b3b3'}}],
-      label:{show:true,position:'bottom',color:'#d63031',fontSize:10,formatter:'{c}'}}]
+  tooltip: { trigger: 'axis', formatter: '{b}<br/>主力净流入: {c} 亿元' },
+  grid: { left: 70, right: 30, top: 30, bottom: 40 },
+  xAxis: { type: 'category', data: ['宇树科技-W', '绿的谐波', '雷赛智能', '埃斯顿'] },
+  yAxis: { type: 'value', name: '亿元' },
+  series: [{
+    type: 'bar', barWidth: '45%',
+    data: [
+      { value: -1.30, itemStyle: { color: DOWN } },
+      { value: -2.19, itemStyle: { color: DOWN } },
+      { value: -0.98, itemStyle: { color: DOWN } },
+      { value: 5.30, itemStyle: { color: UP } }
+    ],
+    label: { show: true, position: 'outside', formatter: '{c}', color: '#333' }
+  }]
 });
 
-// ===== c5 H30590 PE-TTM 与5年分位 =====
+// 图5 H30590 PE-TTM 与 5年分位（双轴）
+var peDates = ['10-16','10-19','10-20','10-21','10-22','10-23','10-26','10-27','10-28','10-29','10-30*'];
+var peVals  = [44.92, 46.22, 47.63, 47.48, 46.96, 49.22, 49.74, 47.68, 49.66, 48.11, 46.24];
+var pePct   = [28.5, 33.4, 40.5, 39.9, 36.4, 47.8, 49.4, 41.0, 49.4, 42.9, null];
 echarts.init(document.getElementById('c5')).setOption({
-  tooltip:{trigger:'axis'},
-  legend:{data:['PE-TTM(倍)','PE近5年分位(%)']},
-  grid:{left:60,right:60,top:50,bottom:40},
-  xAxis:{type:'category',data:['10-15','10-16','10-19','10-20','10-21','10-22','10-23','10-26','10-27','10-28']},
-  yAxis:[
-    {type:'value',name:'PE-TTM(倍)',min:40,max:52},
-    {type:'value',name:'分位(%)',min:0,max:100,axisLabel:{formatter:'{value}%'}}
+  tooltip: { trigger: 'axis' },
+  legend: { data: ['PE-TTM(倍)', 'PE 5年分位(%)'] },
+  grid: { left: 60, right: 60, top: 50, bottom: 40 },
+  xAxis: { type: 'category', data: peDates },
+  yAxis: [
+    { type: 'value', name: 'PE-TTM(倍)', min: 40, max: 52 },
+    { type: 'value', name: '5年分位(%)', min: 0, max: 100, axisLabel: { formatter: '{value}%' } }
   ],
-  series:[
-    {name:'PE-TTM(倍)',type:'line',smooth:true,data:[44.61,44.92,46.22,47.63,47.48,46.96,49.22,49.74,47.68,49.66],
-     lineStyle:{width:3,color:'#2b5aa0'},itemStyle:{color:'#2b5aa0'},
-     areaStyle:{color:'rgba(43,90,160,0.08)'},label:{show:true,fontSize:10,color:'#2b5aa0'}},
-    {name:'PE近5年分位(%)',type:'line',yAxisIndex:1,smooth:true,data:[27.00,28.47,33.44,40.46,39.88,36.42,47.77,49.38,40.96,49.38],
-     lineStyle:{width:2,type:'dashed',color:'#e08a2e'},itemStyle:{color:'#e08a2e'}}]
+  series: [
+    { name: 'PE-TTM(倍)', type: 'line', data: peVals, smooth: true, symbolSize: 6,
+      lineStyle: { color: '#1a5fb4', width: 2.5 }, itemStyle: { color: '#1a5fb4' },
+      markLine: { silent: true, symbol: 'none', lineStyle: { type: 'dashed', color: '#c0392b' },
+        data: [{ yAxis: 48.11, label: { formatter: '10-29官方 48.11×' } }] },
+      label: { show: true, position: 'top', fontSize: 10, color: '#555',
+        formatter: function(p){ return p.value.toFixed(1); } } },
+    { name: 'PE 5年分位(%)', type: 'line', yAxisIndex: 1, data: pePct, smooth: true, symbolSize: 6,
+      lineStyle: { color: '#e6a23c', width: 2, type: 'dashed' }, itemStyle: { color: '#e6a23c' } }
+  ]
 });
 </script>
 </body>
